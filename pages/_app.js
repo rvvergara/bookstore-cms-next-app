@@ -5,6 +5,7 @@ import decode from 'jwt-decode';
 import configureStore from '../redux/configureStore';
 import { setCurrentUser } from '../redux/actions/user';
 import { setAuthorizationToken } from '../utils/api';
+import '../scss/main.scss';
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {

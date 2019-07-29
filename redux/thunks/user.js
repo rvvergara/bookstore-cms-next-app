@@ -1,10 +1,12 @@
 import { setCurrentUser } from '../actions/user';
 import { setErrors } from '../actions/errors';
 import { fetchData, setAuthorizationToken } from '../../utils/api';
+import { setCookie } from '../../utils/cookie';
 
 const setUserInStore = (user, dispatch) => {
   const { token } = user;
   localStorage.setItem('token', token);
+  setCookie('token', token);
   setAuthorizationToken(token);
   dispatch(setCurrentUser({ authenticated: true, data: user }));
   dispatch(setErrors(null));

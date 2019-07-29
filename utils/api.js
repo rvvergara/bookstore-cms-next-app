@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 export const fetchData = async (method, path, data) => {
-  const result = await axios[method](path, data);
+  const baseUrl = 'http://localhost:3000';
+  const result = await axios[method](`${baseUrl}/${path}`, data);
   return result;
 };
 

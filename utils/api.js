@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const fetchData = async (method, path, data) => {
-  const baseUrl = 'http://localhost:3000';
+  const baseUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : process.env.API_URL;
   const result = await axios[method](`${baseUrl}/${path}`, data);
   return result;
 };

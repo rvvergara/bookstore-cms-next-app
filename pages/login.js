@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { login } from '../redux/thunks/user';
 import InputWrapper from '../components/InputWrapper';
+import Layout from '../components/Layout';
 import initialize from '../utils/initialize';
 
 export const Login = ({
@@ -24,7 +25,7 @@ export const Login = ({
   };
 
   return (
-    <div>
+    <Layout title="Log in">
       <div className="form-wrapper">
         <form className="form user-form">
           {errors && <div className="error">{errors.message}</div>}
@@ -60,7 +61,7 @@ export const Login = ({
           </div>
         </form>
       </div>
-    </div>
+    </Layout>
   );
 };
 

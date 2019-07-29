@@ -25,3 +25,10 @@ export const login = loginParams => (dispatch) => {
   })
     .catch(err => setErrorInStore(err, dispatch));
 };
+
+export const logout = () => (dispatch) => {
+  localStorage.clear();
+  setAuthorizationToken(false);
+  dispatch(setCurrentUser({ authenticated: false, data: null }));
+  return Promise.resolve();
+};

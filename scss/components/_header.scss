@@ -1,0 +1,45 @@
+.panel-bg {
+  height: 7rem;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10rem;
+}
+
+.bookstore-cms {
+  width: 24rem;
+  height: 3.7rem;
+  font-family: "Montserrat";
+  font-size: $large;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+
+  a {
+    color: $light-blue;
+  }
+}
+
+.active {
+  font-weight: 700;
+  color: $light-blue;
+
+}
+
+.user-wrapper {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: $medium * 0.8;
+  padding: $medium $small;
+}
+
+.logout-btn {
+  font-size: $medium * 0.8;
+  margin: 0 $small;
+
+  &:hover {
+    cursor: pointer;
+    color: $translucent-gray;
+  }
+}

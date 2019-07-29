@@ -5,7 +5,7 @@ import { setCookie } from '../../utils/cookie';
 
 const setUserInStore = (user, dispatch) => {
   const { token } = user;
-  localStorage.setItem('token', token);
+  // localStorage.setItem('token', token);
   setCookie('token', token);
   setAuthorizationToken(token);
   dispatch(setCurrentUser({ authenticated: true, data: user }));
@@ -14,7 +14,7 @@ const setUserInStore = (user, dispatch) => {
 
 const setErrorInStore = (err, dispatch) => {
   dispatch(setErrors(err.response.data));
-  localStorage.clear();
+  // localStorage.clear();
   dispatch(setCurrentUser({ authenticated: false, data: null }));
 };
 

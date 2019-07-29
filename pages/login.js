@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { login } from '../redux/thunks/user';
 import InputWrapper from '../components/InputWrapper';
+import initialize from '../utils/initialize';
 
 export const Login = ({
   login,
@@ -11,24 +12,22 @@ export const Login = ({
 }) => {
   const [emailOrUsername, setEmailOrUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState(errors ? errors.message : errors);
 
   const loginUser = (e) => {
     e.preventDefault();
     setEmailOrUsername('');
     setPassword('');
     login({ email_or_username: emailOrUsername, password })
-      .then(() => {
-        Router.push('/');
-      })
-      .catch(() => setErrorMessage(errors));
+      .then((data) => {
+        if (data) Router.push('/');
+      });
   };
 
   return (
     <div>
       <div className="form-wrapper">
         <form className="form user-form">
-          {errors && <div className="error">{errorMessage}</div>}
+          {errors && <div className="error">{errors.message}</div>}
           <InputWrapper
             inputValue={emailOrUsername}
             labelValue="Username/Email:"
@@ -65,7 +64,7 @@ export const Login = ({
   );
 };
 
-Login.getInitialProps = ({ store }) => ({ errors: store.errors });
+Login.getInitialProps = ctx => initialize(ctx);
 
 export default connect(
   state => state,

@@ -23,6 +23,7 @@ export const login = loginParams => (dispatch) => {
   return fetchData('post', path, loginParams).then((res) => {
     const { user } = res.data;
     setUserInStore(user, dispatch);
+    return Promise.resolve('Successful login');
   })
     .catch(err => setErrorInStore(err, dispatch));
 };

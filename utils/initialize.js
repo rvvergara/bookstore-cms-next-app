@@ -6,8 +6,16 @@ export default (ctx) => {
   if (ctx.isServer) {
     if (ctx.req.headers.cookie) {
       const { req, store } = ctx;
-      const { currentUser, dispatch } = store;
-      dispatch(setCurrentUser({ ...currentUser, data: { ...currentUser.data, token: getCookie('token', req) } }));
+      const { getState, dispatch } = store;
+      const { currentUser } = getState();
+      dispatch(
+        setCurrentUser(
+          {
+            ...currentUser,
+            data: { ...currentUser.data, token: getCookie('token', req) },
+          },
+        ),
+      );
     }
   } else {
     const { token } = ctx.store.getState().currentUser.data;

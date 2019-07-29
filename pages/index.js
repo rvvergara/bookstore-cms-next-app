@@ -1,4 +1,6 @@
 import { connect } from 'react-redux';
+import initialize from '../utils/initialize';
+
 
 const Index = ({ currentUser }) => (
   <div>
@@ -7,8 +9,6 @@ const Index = ({ currentUser }) => (
   </div>
 );
 
-Index.getInitialProps = ({ store }) => ({
-  currentUser: store.currentUser,
-});
+Index.getInitialProps = ctx => initialize(ctx);
 
 export default connect(state => state)(Index);

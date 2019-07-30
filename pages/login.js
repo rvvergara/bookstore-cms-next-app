@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import redirect from 'next-redirect';
 import { login } from '../redux/thunks/user';
 import InputWrapper from '../components/InputWrapper';
 import Layout from '../components/Layout';
@@ -65,7 +66,13 @@ export const Login = ({
   );
 };
 
-Login.getInitialProps = ctx => initialize(ctx);
+Login.getInitialProps = (ctx) => {
+  initialize(ctx);
+  const { currentUser } = ctx.store.getState();
+  if (currentUser.authenticated) {
+    return redirect(ctx, '/');
+  }
+};
 
 export default connect(
   state => state,

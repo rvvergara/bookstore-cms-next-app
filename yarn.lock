@@ -4031,6 +4031,11 @@ neo-async@^2.5.0:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
   integrity sha512-iyam8fBuCUpWeKPGpaNMetEocMt364qkCsfL9JuhjXX6dRnguRVOfk2GZaDpPjcOKiiXCPINZC1GczQ7iTq3Zw==
 
+next-redirect@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/next-redirect/-/next-redirect-1.0.1.tgz#eb84ba12f5e1d7ee37fed7088d56ea747b4cedf2"
+  integrity sha1-64S6EvXh1+43/tcIjVbqdHtM7fI=
+
 next-redux-wrapper@^3.0.0-alpha.3:
   version "3.0.0-alpha.3"
   resolved "https://registry.yarnpkg.com/next-redux-wrapper/-/next-redux-wrapper-3.0.0-alpha.3.tgz#3db44012e2e36e12977816cc8726a9e2d24a9c40"

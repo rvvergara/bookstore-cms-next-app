@@ -11,10 +11,10 @@ class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
     const { store, req } = ctx;
     if (req) {
-      const { cookie } = req.headers;
-      const token = cookie.split('=')[1];
-      const userData = decode(token);
       try {
+        const { cookie } = req.headers;
+        const token = cookie.split('=')[1];
+        const userData = decode(token);
         store.dispatch(setCurrentUser({ authenticated: true, data: userData }));
         setAuthorizationToken(token);
       } catch (err) {

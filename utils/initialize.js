@@ -18,10 +18,14 @@ export default (ctx) => {
       );
     }
   } else {
-    const { token } = ctx.store.getState().currentUser.data;
+    try {
+      const { token } = ctx.store.getState().currentUser.data;
 
-    if (token && (ctx.pathname === '/login' || ctx.pathname === '/signup')) {
-      setTimeout(() => Router.push('/'), 0);
+      if (token && (ctx.pathname === '/login' || ctx.pathname === '/signup')) {
+        setTimeout(() => Router.push('/'), 0);
+      }
+    } catch (err) {
+      console.log('No token');
     }
   }
 };

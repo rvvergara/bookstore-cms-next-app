@@ -54,7 +54,7 @@ export const Login = ({
             <button
               type="button"
               className="user-form__btn"
-              onClick={() => history.push('/signup')}
+              onClick={() => Router.push('/signup')}
             >
               Sign Up
             </button>

@@ -5,7 +5,7 @@ import Layout from '../components/Layout';
 
 const Index = ({ currentUser }) => (
   <Layout title="Home">
-    <p>{currentUser.data.username}</p>
+    <p>Home Page</p>
   </Layout>
 );
 

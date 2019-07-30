@@ -1,7 +1,7 @@
 import { setCurrentUser } from '../actions/user';
 import { setErrors } from '../actions/errors';
 import { fetchData, setAuthorizationToken } from '../../utils/api';
-import { setCookie } from '../../utils/cookie';
+import { setCookie, removeCookie } from '../../utils/cookie';
 
 const setUserInStore = (user, dispatch) => {
   const { token } = user;
@@ -27,8 +27,8 @@ export const login = loginParams => (dispatch) => {
 };
 
 export const logout = () => (dispatch) => {
-  localStorage.clear();
   setAuthorizationToken(false);
+  removeCookie('token');
   dispatch(setCurrentUser({ authenticated: false, data: null }));
   return Promise.resolve();
 };

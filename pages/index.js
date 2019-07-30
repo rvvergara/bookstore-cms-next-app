@@ -2,10 +2,11 @@ import { connect } from 'react-redux';
 import redirect from 'next-redirect';
 import initialize from '../utils/initialize';
 import Layout from '../components/Layout';
+import UserDashboard from '../components/UserDashboard';
 
 const Index = ({ currentUser }) => (
   <Layout title="Home">
-    <p>Home Page</p>
+    <UserDashboard />
   </Layout>
 );
 

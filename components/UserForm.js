@@ -8,11 +8,15 @@ import InputWrapper from './InputWrapper';
 const UserForm = ({
   currentUser,
   errors,
+  signUp,
+  updateAccount,
 }) => {
   const {
     authenticated: isAuthenticated,
     data: userData,
   } = currentUser;
+
+  const router = useRouter();
   const [username, setUsername] = useState(userData ? userData.username : '');
   const [email, setEmail] = useState(userData ? userData.email : '');
   const [password, setPassword] = useState('');
@@ -40,7 +44,7 @@ const UserForm = ({
     const params = userData ? { user: userParamsData, id: userData.id } : { user: userParamsData };
     const usernameParam = isAuthenticated ? userData.username : '';
     saveUser(params, usernameParam)
-      .then(() => history.push('/'))
+      .then(() => router.push('/'))
       .catch(err => err);
   };
 

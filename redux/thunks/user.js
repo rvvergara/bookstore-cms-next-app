@@ -16,9 +16,14 @@ const setErrorInStore = (err, dispatch) => {
   if (err.response) {
     dispatch(setErrors(err.response.data));
   } else {
-    err.response = { data: { message: 'Server not available right now' } };
+    err.response = {
+      data: {
+        message: 'Server not available right now',
+      },
+    };
     dispatch(setErrors(err.response.data));
   }
+  dispatch(setErrors(err.response.data));
   dispatch(setCurrentUser({ authenticated: false, data: null }));
 };
 
@@ -66,8 +71,8 @@ export const updateAccount = (userParams, usernameParam) => async (dispatch) => 
       setUserInStore(user, dispatch);
     }
   } catch (err) {
-    dispatch(setErrors(err.response.data));
-    return Promise.reject(err);
+    dispatch(setErrors(err));
+    return Promise.reject();
   }
 };
 

@@ -45,9 +45,11 @@ const UserForm = ({
     const usernameParam = isAuthenticated ? userData.username : '';
     saveUser(params, usernameParam)
       .then(() => router.push('/'))
-      .catch(err => err);
+      .catch((err) => {
+        err;
+      });
   };
-
+  const fieldErrorsAvailable = errors && errors.errors;
   return (
     <div>
       <form>
@@ -60,7 +62,7 @@ const UserForm = ({
           setInput={setUsername}
           type="text"
           inputId="username"
-          error={errors ? errors.errors.username : null}
+          error={fieldErrorsAvailable ? errors.errors.username : null}
 
         />
         <InputWrapper
@@ -69,7 +71,7 @@ const UserForm = ({
           setInput={setEmail}
           type="email"
           inputId="email"
-          error={errors ? errors.errors.email : null}
+          error={fieldErrorsAvailable ? errors.errors.email : null}
         />
         <InputWrapper
           inputValue={password}
@@ -77,7 +79,7 @@ const UserForm = ({
           setInput={setPassword}
           type="password"
           inputId="password"
-          error={errors ? errors.errors.password : null}
+          error={fieldErrorsAvailable ? errors.errors.password : null}
 
         />
         <InputWrapper
@@ -86,7 +88,7 @@ const UserForm = ({
           setInput={setPasswordConfirmation}
           type="password"
           inputId="password-confirmation"
-          error={errors ? errors.errors.password : null}
+          error={fieldErrorsAvailable ? errors.errors.password : null}
 
         />
         <InputWrapper
@@ -95,7 +97,7 @@ const UserForm = ({
           setInput={setFirstName}
           type="text"
           inputId="first-name"
-          error={errors ? errors.errors.first_name : null}
+          error={fieldErrorsAvailable ? errors.errors.first_name : null}
 
         />
         <InputWrapper
@@ -104,7 +106,7 @@ const UserForm = ({
           setInput={setLastName}
           type="text"
           inputId="last-name"
-          error={errors ? errors.errors.last_name : null}
+          error={fieldErrorsAvailable ? errors.errors.last_name : null}
 
         />
         <div className="btn-wrapper">

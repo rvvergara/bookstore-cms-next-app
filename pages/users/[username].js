@@ -3,7 +3,9 @@ import redirect from 'next-redirect';
 import { useRouter } from 'next/router';
 import initialize from '../../utils/initialize';
 import Layout from '../../components/Layout';
+import Collection from '../../components/Collection';
 import { fetchUserData } from '../../redux/thunks/user';
+import { setCollection } from '../../redux/actions/collection';
 
 const User = ({ user, error }) => {
   const router = useRouter();
@@ -26,10 +28,10 @@ const User = ({ user, error }) => {
   return (
     <Layout title={fullName}>
       <h3>
-        Page for
-        {' '}
         {fullName}
+        's Collection
       </h3>
+      <Collection />
     </Layout>
   );
 };
@@ -44,10 +46,11 @@ User.getInitialProps = async (ctx) => {
   let user;
   try {
     user = await store.dispatch(fetchUserData(query.username));
+    ctx.store.dispatch(setCollection(user.collection));
     return { user };
   } catch (err) {
     const error = err;
-    return { error, user: null };
+    return { error, user: null, collection: [] };
   }
 };
 

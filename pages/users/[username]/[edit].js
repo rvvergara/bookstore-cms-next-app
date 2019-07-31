@@ -19,9 +19,13 @@ const User = ({ currentUser }) => {
 
 User.getInitialProps = (ctx) => {
   initialize(ctx);
-  const { currentUser } = ctx.store.getState();
+  const { query, store } = ctx;
+  const { currentUser } = store.getState();
   if (!currentUser.authenticated) {
     return redirect(ctx, '/login');
+  }
+  if (currentUser.data.username !== query.username) {
+    return redirect(ctx, `/users/${currentUser.data.username}`);
   }
 };
 

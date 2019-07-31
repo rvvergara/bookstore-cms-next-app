@@ -13,7 +13,12 @@ const setUserInStore = (user, dispatch) => {
 };
 
 const setErrorInStore = (err, dispatch) => {
-  dispatch(setErrors(err.response.data));
+  if (err.response) {
+    dispatch(setErrors(err.response.data));
+  } else {
+    err.response = { data: { message: 'Server not available right now' } };
+    dispatch(setErrors(err.response.data));
+  }
   dispatch(setCurrentUser({ authenticated: false, data: null }));
 };
 

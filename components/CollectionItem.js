@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import Progress from './Progress';
+import CurrentPage from './CurrentPage';
 
 const CollectionItem = ({ item, currentUser }) => {
   const {
@@ -37,7 +38,7 @@ const CollectionItem = ({ item, currentUser }) => {
             />
           </div>
           <div className="chapter-info">
-            <div>Current Chapter component here</div>
+            <CurrentPage currentPage={String(current_page)} />
             <div>Progress update component here</div>
           </div>
         </div>

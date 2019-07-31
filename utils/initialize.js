@@ -25,7 +25,7 @@ export default (ctx) => {
         setTimeout(() => Router.push('/'), 0);
       }
     } catch (err) {
-      console.log('No token');
+      err;
     }
   }
 };

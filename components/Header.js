@@ -7,7 +7,6 @@ export const Header = ({ logout, currentUser }) => {
   const handleLogBtn = () => {
     if (currentUser.authenticated) {
       logout();
-      Router.push('/');
     } else {
       Router.push('/login');
     }

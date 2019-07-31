@@ -1,3 +1,4 @@
+import Router from 'next/router';
 import decode from 'jwt-decode';
 import { setCurrentUser } from '../actions/user';
 import { setErrors } from '../actions/errors';
@@ -39,12 +40,13 @@ export const login = loginParams => async (dispatch) => {
   }
 };
 
-export const logout = () => (dispatch) => {
-  setAuthorizationToken(false);
-  removeCookie('token');
-  dispatch(setCurrentUser({ authenticated: false, data: null }));
-  return Promise.resolve();
-};
+export const logout = () => dispatch => Promise.resolve()
+  .then(() => {
+    setAuthorizationToken(false);
+    removeCookie('token');
+    dispatch(setCurrentUser({ authenticated: false, data: null }));
+  })
+  .then(() => Router.push('/login'));
 
 export const signUp = signupParams => async (dispatch) => {
   const path = '/v1/users';

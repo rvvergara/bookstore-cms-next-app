@@ -25,7 +25,11 @@ const User = ({ user, error }) => {
   const fullName = `${first_name} ${last_name}`;
   return (
     <Layout title={fullName}>
-      <h3>Hello</h3>
+      <h3>
+        Page for
+        {' '}
+        {fullName}
+      </h3>
     </Layout>
   );
 };

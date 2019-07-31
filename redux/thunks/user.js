@@ -65,3 +65,14 @@ export const updateAccount = (userParams, usernameParam) => async (dispatch) => 
     return Promise.reject(err);
   }
 };
+
+export const fetchUserData = username => async () => {
+  const path = `/v1/users/${username}`;
+  try {
+    const res = await fetchData('get', path);
+    const { user } = res.data;
+    return user;
+  } catch (err) {
+    return Promise.reject(err.response.data.message);
+  }
+};

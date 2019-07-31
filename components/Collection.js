@@ -1,10 +1,16 @@
 import { connect } from 'react-redux';
+import CollectionItem from './CollectionItem';
 
-const Collection = ({ collection }) => collection.map(item => (
-  <h4 key={item.id}>
-      {item.title}
-    </h4>
-));
+const Collection = ({ collection }) => (
+  <div>
+    {collection.map(item => (
+      <CollectionItem
+        key={item.id}
+        item={item}
+      />
+    ))}
+  </div>
+);
 
 const mapStateToProps = state => ({
   collection: state.collection,

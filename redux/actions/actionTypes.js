@@ -1,3 +1,4 @@
+export const REMOVE_ITEM = 'REMOVE_ITEM';
 export const SET_COLLECTION = 'SET_COLLECTION';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 export const SET_ERRORS = 'SET_ERRORS';

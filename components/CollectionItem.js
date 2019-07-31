@@ -1,6 +1,8 @@
-const CollectionItem = ({ item }) => {
+import { connect } from 'react-redux';
+
+const CollectionItem = ({ item, currentUser }) => {
   const {
-    title, category, authors, id,
+    title, category, authors, id, owner_id,
   } = item;
   return (
     <div className="card">
@@ -14,13 +16,17 @@ const CollectionItem = ({ item }) => {
               {authors}
             </p>
             <div className="action">
-              <button
-                className="btn btn-link"
-                type="button"
-                onClick={() => console.log(`Removed item ${id} from collection`)}
-              >
+              {
+                currentUser.data.id === owner_id && (
+                <button
+                  className="btn btn-link"
+                  type="button"
+                  onClick={() => console.log(`Removed item ${id} from collection`)}
+                >
                 Remove
-              </button>
+                </button>
+                )
+            }
             </div>
           </div>
           <div className="progress">
@@ -36,4 +42,8 @@ const CollectionItem = ({ item }) => {
   );
 };
 
-export default CollectionItem;
+const mapStateToProps = state => ({
+  currentUser: state.currentUser,
+});
+
+export default connect(mapStateToProps)(CollectionItem);

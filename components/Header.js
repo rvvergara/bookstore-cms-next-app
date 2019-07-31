@@ -4,9 +4,13 @@ import Router from 'next/router';
 import { logout } from '../redux/thunks/user';
 
 export const Header = ({ logout, currentUser }) => {
-  const handleLogout = () => {
-    logout();
-    Router.push('/');
+  const handleLogBtn = () => {
+    if (currentUser.authenticated) {
+      logout();
+      Router.push('/');
+    } else {
+      Router.push('/login');
+    }
   };
   return (
     <header className="panel-bg">
@@ -42,7 +46,7 @@ export const Header = ({ logout, currentUser }) => {
         <button
           type="button"
           className="logout-btn"
-          onClick={handleLogout}
+          onClick={handleLogBtn}
         >
           {currentUser.authenticated ? 'Log Out' : 'Log In'}
         </button>

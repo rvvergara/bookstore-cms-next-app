@@ -7,7 +7,12 @@ import { fetchCollection } from '../redux/thunks/collection';
 import { setAuthorizationToken } from '../utils/api';
 
 const Index = ({ currentUser }) => {
-  setAuthorizationToken(currentUser.data.token);
+  try {
+    setAuthorizationToken(currentUser.data.token);
+  } catch (err) {
+    // console.log('Index Page Error', err);
+    err;
+  }
   return (
     <Layout title="Home">
       <Collection />

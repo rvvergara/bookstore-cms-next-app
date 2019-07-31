@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import Progress from './Progress';
 import CurrentPage from './CurrentPage';
 import { fetchRemoveItem } from '../redux/thunks/collection';
+import Layout from './Layout';
 
 const CollectionItem = ({
   item,
@@ -17,20 +18,21 @@ const CollectionItem = ({
     current_page,
     page_count,
   } = item;
-  const { username } = currentUser.data;
-  return (
-    <div className="card">
-      <div className="card-body">
-        <div className="columns">
-          <div className="book-info">
-            <h4 className="genre">{category}</h4>
-            <h3 className="title">{title}</h3>
-            <p>
+  try {
+    const { username } = currentUser.data;
+    return (
+      <div className="card">
+        <div className="card-body">
+          <div className="columns">
+            <div className="book-info">
+              <h4 className="genre">{category}</h4>
+              <h3 className="title">{title}</h3>
+              <p>
               by:&nbsp;
-              {authors}
-            </p>
-            <div className="action">
-              {
+                {authors}
+              </p>
+              <div className="action">
+                {
                 currentUser.data.id === owner_id && (
                 <button
                   className="btn btn-link"
@@ -41,22 +43,25 @@ const CollectionItem = ({
                 </button>
                 )
             }
+              </div>
             </div>
-          </div>
-          <div className="progress">
-            <Progress
-              currentPage={Number(current_page)}
-              pages={Number(page_count)}
-            />
-          </div>
-          <div className="chapter-info">
-            <CurrentPage currentPage={String(current_page)} />
-            <div>Progress update component here</div>
+            <div className="progress">
+              <Progress
+                currentPage={Number(current_page)}
+                pages={Number(page_count)}
+              />
+            </div>
+            <div className="chapter-info">
+              <CurrentPage currentPage={String(current_page)} />
+              <div>Progress update component here</div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  } catch (err) {
+    return <div>ERROR</div>;
+  }
 };
 
 const mapStateToProps = state => ({

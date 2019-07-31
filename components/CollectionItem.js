@@ -1,8 +1,9 @@
 import { connect } from 'react-redux';
+import Progress from './Progress';
 
 const CollectionItem = ({ item, currentUser }) => {
   const {
-    title, category, authors, id, owner_id,
+    title, category, authors, id, owner_id, current_page, page_count,
   } = item;
   return (
     <div className="card">
@@ -30,7 +31,10 @@ const CollectionItem = ({ item, currentUser }) => {
             </div>
           </div>
           <div className="progress">
-            <div>Progress component here</div>
+            <Progress
+              currentPage={Number(current_page)}
+              pages={Number(page_count)}
+            />
           </div>
           <div className="chapter-info">
             <div>Current Chapter component here</div>

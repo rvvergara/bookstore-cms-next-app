@@ -11,7 +11,11 @@ const Layout = ({ children, title }) => (
       </title>
     </Head>
     <Header />
-    { children }
+    <div id="app">
+      <div id="container">
+        { children }
+      </div>
+    </div>
   </div>
 );
 

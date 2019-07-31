@@ -22,9 +22,9 @@ Index.getInitialProps = async (ctx) => {
   }
   try {
     setAuthorizationToken(currentUser.data.token);
-    collection = await ctx.store.dispatch(fetchCollection(currentUser.data.username));
+    await ctx.store.dispatch(fetchCollection(currentUser.data.username));
   } catch (err) {
-    console.log('NETWORK ERROR');
+    console.log('Something went wrong', err);
   }
   return { currentUser };
 };

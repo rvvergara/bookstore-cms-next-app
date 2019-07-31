@@ -19,7 +19,8 @@ export const Header = ({ logout, currentUser }) => {
         {currentUser.authenticated && (
         <span>
           <Link
-            href={`/users/${currentUser.data.username}`}
+            href="/users/[username]"
+            as={`/users/${currentUser.data.username}`}
           >
             <a>
               {currentUser.data.first_name}

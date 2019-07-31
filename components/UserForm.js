@@ -88,7 +88,7 @@ const UserForm = ({
           setInput={setPasswordConfirmation}
           type="password"
           inputId="password-confirmation"
-          error={fieldErrorsAvailable ? errors.errors.password : null}
+          error={fieldErrorsAvailable ? errors.errors.password_confirmation : null}
 
         />
         <InputWrapper

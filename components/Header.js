@@ -42,7 +42,7 @@ export const Header = ({ logout, currentUser }) => {
         <button
           type="button"
           className="logout-btn"
-          onClick={currentUser.authenticated ? handleLogout : () => Router.push('/login')}
+          onClick={handleLogout}
         >
           {currentUser.authenticated ? 'Log Out' : 'Log In'}
         </button>

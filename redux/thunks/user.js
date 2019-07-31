@@ -73,11 +73,16 @@ export const updateAccount = (userParams, usernameParam) => async (dispatch) => 
       setUserInStore(user, dispatch);
     }
   } catch (err) {
-    const { password, password_confirmation } = userParams.user;
-    if (password !== password_confirmation) {
-      err.response.data.errors.password_confirmation = ["didn't match password"];
+    if (err.response) {
+      const { password, password_confirmation } = userParams.user;
+      if (password !== password_confirmation) {
+        err.response.data.errors.password_confirmation = ["didn't match password"];
+      }
+      dispatch(setErrors(err.response.data));
+    } else {
+      dispatch(setErrors(err));
     }
-    dispatch(setErrors(err.response.data));
+
     return Promise.reject();
   }
 };

@@ -1,5 +1,5 @@
 import { fetchData } from '../../utils/api';
-import { setCollection } from '../actions/collection';
+import { setCollection, removeItem } from '../actions/collection';
 
 export const fetchCollection = username => async (dispatch) => {
   const path = `/v1/users/${username}/collection`;
@@ -9,4 +9,13 @@ export const fetchCollection = username => async (dispatch) => {
     .catch(err => err);
   dispatch(setCollection(data));
   return data;
+};
+
+export const fetchRemoveItem = (username, id) => (dispatch) => {
+  const path = `/v1/users/${username}/collection/${id}`;
+
+  return fetchData('delete', path)
+    .then(() => {
+      dispatch(removeItem(id));
+    });
 };

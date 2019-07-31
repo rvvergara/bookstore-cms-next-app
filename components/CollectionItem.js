@@ -1,11 +1,23 @@
 import { connect } from 'react-redux';
 import Progress from './Progress';
 import CurrentPage from './CurrentPage';
+import { fetchRemoveItem } from '../redux/thunks/collection';
 
-const CollectionItem = ({ item, currentUser }) => {
+const CollectionItem = ({
+  item,
+  currentUser,
+  fetchRemoveItem,
+}) => {
   const {
-    title, category, authors, id, owner_id, current_page, page_count,
+    title,
+    category,
+    authors,
+    id,
+    owner_id,
+    current_page,
+    page_count,
   } = item;
+  const { username } = currentUser.data;
   return (
     <div className="card">
       <div className="card-body">
@@ -23,7 +35,7 @@ const CollectionItem = ({ item, currentUser }) => {
                 <button
                   className="btn btn-link"
                   type="button"
-                  onClick={() => console.log(`Removed item ${id} from collection`)}
+                  onClick={() => fetchRemoveItem(username, id)}
                 >
                 Remove
                 </button>
@@ -51,4 +63,4 @@ const mapStateToProps = state => ({
   currentUser: state.currentUser,
 });
 
-export default connect(mapStateToProps)(CollectionItem);
+export default connect(mapStateToProps, { fetchRemoveItem })(CollectionItem);

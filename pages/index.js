@@ -2,11 +2,14 @@ import { connect } from 'react-redux';
 import redirect from 'next-redirect';
 import initialize from '../utils/initialize';
 import Layout from '../components/Layout';
+import Collection from '../components/Collection';
 import { fetchCollection } from '../redux/thunks/collection';
 import { setAuthorizationToken } from '../utils/api';
 
-const Index = ({ collection }) => (
-  <Layout title="Home" />
+const Index = () => (
+  <Layout title="Home">
+    <Collection />
+  </Layout>
 );
 Index.getInitialProps = async (ctx) => {
   initialize(ctx);

@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import initialize from '../../utils/initialize';
 import Layout from '../../components/Layout';
 import Collection from '../../components/Collection';
+import { setAuthorizationToken } from '../../utils/api';
 import { fetchUserData } from '../../redux/thunks/user';
 import { setCollection } from '../../redux/actions/collection';
 
@@ -45,6 +46,7 @@ User.getInitialProps = async (ctx) => {
   }
   let user;
   try {
+    setAuthorizationToken(currentUser.data.token);
     user = await store.dispatch(fetchUserData(query.username));
     ctx.store.dispatch(setCollection(user.collection));
     return { user };

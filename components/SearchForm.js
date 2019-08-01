@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import Router from 'next/router';
 
 const SearchForm = ({ searchTerm }) => {
-  const handleSearch = (e) => {
+  const handleSearch = (keywords, e) => {
     e.preventDefault();
-    console.log('Searching now');
+    const path = `/library/search?q=${keywords}`;
+    Router.push(path);
   };
 
   const [keywords, setKeywords] = useState(searchTerm || '');
@@ -21,7 +23,7 @@ const SearchForm = ({ searchTerm }) => {
         <button
           type="submit"
           className="add-book-btn btn-sm"
-          onClick={handleSearch}
+          onClick={e => handleSearch(keywords, e)}
         >
             Search
         </button>

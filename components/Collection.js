@@ -1,8 +1,10 @@
 import { connect } from 'react-redux';
 import CollectionItem from './CollectionItem';
+import SearchForm from './SearchForm';
 
 const Collection = ({ collection }) => (
   <div>
+    <SearchForm />
     {collection.map(item => (
       <CollectionItem
         key={item.id}

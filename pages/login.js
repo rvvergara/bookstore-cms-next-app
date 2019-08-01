@@ -17,8 +17,6 @@ export const Login = ({
 
   const loginUser = (e) => {
     e.preventDefault();
-    // setEmailOrUsername('');
-    // setPassword('');
     login({ email_or_username: emailOrUsername, password })
       .then((data) => {
         if (data) Router.push('/');

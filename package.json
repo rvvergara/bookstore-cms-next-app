@@ -8,6 +8,8 @@
   "scripts": {
     "dev": "next -p 8080",
     "build": "next build",
+    "start": "next start -p $PORT",
+    "heroku-postbuild": "yarn build ",
     "export": "yarn build && next export"
   },
   "dependencies": {

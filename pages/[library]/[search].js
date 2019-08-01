@@ -30,9 +30,10 @@ Search.getInitialProps = async (ctx) => {
   let searchTerm;
   try {
     setAuthorizationToken(currentUser.data.token);
-    searchResults = await ctx.store.dispatch(searchLibrary(ctx.query.q))
+    const { dispatch, getState } = ctx.store;
+    searchResults = await dispatch(searchLibrary(ctx.query.q))
       .then(() => {
-        searchTerm = ctx.store.getState().searchTerm;
+        searchTerm = getState().searchTerm;
       });
   } catch (err) {
     searchResults = [];

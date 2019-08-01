@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { connect } from 'react-redux';
 import Router from 'next/router';
+import { setAuthorizationToken } from '../utils/api';
 import { searchLibrary } from '../redux/thunks/search';
 
-const SearchForm = ({ searchTerm, searchLibrary }) => {
+const SearchForm = ({ searchTerm, searchLibrary, token }) => {
+  setAuthorizationToken(token);
   const handleSearch = (keywords, e) => {
     e.preventDefault();
     searchLibrary(keywords)
@@ -34,4 +36,8 @@ const SearchForm = ({ searchTerm, searchLibrary }) => {
   );
 };
 
-export default connect(null, { searchLibrary })(SearchForm);
+const mapStateToProps = state => ({
+  token: state.currentUser.data.token,
+});
+
+export default connect(mapStateToProps, { searchLibrary })(SearchForm);

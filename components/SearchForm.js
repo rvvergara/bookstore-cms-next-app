@@ -38,7 +38,7 @@ const SearchForm = ({ searchTerm, searchLibrary, token }) => {
 };
 
 const mapStateToProps = state => ({
-  token: state.currentUser.data.token,
+  token: state.currentUser.data ? state.currentUser.data.token : null,
   searchTerm: state.searchTerm,
 });
 

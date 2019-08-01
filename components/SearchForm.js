@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import Router from 'next/router';
+import { connect } from 'react-redux';
+import { searchLibrary } from '../redux/thunks/search';
 
-const SearchForm = ({ searchTerm }) => {
+const SearchForm = ({ searchTerm, searchLibrary }) => {
   const handleSearch = (keywords, e) => {
     e.preventDefault();
-    const path = `/library/search?q=${keywords}`;
-    Router.push(path);
+    searchLibrary(keywords);
   };
 
   const [keywords, setKeywords] = useState(searchTerm || '');
@@ -32,4 +32,4 @@ const SearchForm = ({ searchTerm }) => {
   );
 };
 
-export default SearchForm;
+export default connect(null, { searchLibrary })(SearchForm);

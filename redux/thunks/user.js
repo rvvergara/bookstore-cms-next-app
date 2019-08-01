@@ -4,6 +4,8 @@ import { setCurrentUser } from '../actions/user';
 import { setErrors } from '../actions/errors';
 import { fetchData, setAuthorizationToken } from '../../utils/api';
 import { setCookie, removeCookie } from '../../utils/cookie';
+import { listSearchResults } from '../actions/search';
+import { setSearchTerm } from '../actions/searchTerm';
 
 const setUserInStore = (user, dispatch) => {
   const { token } = user;
@@ -45,6 +47,8 @@ export const logout = () => dispatch => Promise.resolve()
     setAuthorizationToken(false);
     removeCookie('token');
     dispatch(setCurrentUser({ authenticated: false, data: null }));
+    dispatch(setSearchTerm(''));
+    dispatch(listSearchResults([]));
   })
   .then(() => Router.push('/login'));
 

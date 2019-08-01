@@ -4,10 +4,12 @@ import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers/index';
 
-const middleWares = process.env.NODE_ENV === 'development' ? applyMiddleware(thunk, logger) : applyMiddleware(thunk);
+const middleWares = composeWithDevTools(applyMiddleware(thunk, logger));
+
+const devTools = process.env.NODE_ENV === 'development' ? middleWares : undefined;
 
 export default (initialState = {}) => createStore(
   rootReducer,
   initialState,
-  composeWithDevTools(middleWares),
+  devTools,
 );

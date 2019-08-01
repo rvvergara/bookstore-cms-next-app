@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Router from 'next/router';
 import { setAuthorizationToken } from '../utils/api';
 import { searchLibrary } from '../redux/thunks/search';
+import { setSearchTerm } from '../redux/actions/searchTerm';
 
 const SearchForm = ({ searchTerm, searchLibrary, token }) => {
   setAuthorizationToken(token);
@@ -38,6 +39,7 @@ const SearchForm = ({ searchTerm, searchLibrary, token }) => {
 
 const mapStateToProps = state => ({
   token: state.currentUser.data.token,
+  searchTerm: state.searchTerm,
 });
 
 export default connect(mapStateToProps, { searchLibrary })(SearchForm);

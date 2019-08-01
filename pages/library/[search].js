@@ -2,19 +2,25 @@ import { connect } from 'react-redux';
 import redirect from 'next-redirect';
 import initialize from '../../utils/initialize';
 import Layout from '../../components/Layout';
+import LibrarySearchResultItemm from '../../components/LibrarySearchResultItem';
+import SearchForm from '../../components/SearchForm';
 import { setAuthorizationToken } from '../../utils/api';
 import { searchLibrary } from '../../redux/thunks/search';
 
 const Search = ({ searchResults, searchTerm }) => (
   <Layout title={`Search - ${searchTerm}`}>
-    <h2>
-      Search Results for
+    <SearchForm />
+    <h4 className="search-result-heading">
+      Search results for
       {' '}
       {searchTerm}
-    </h2>
+    </h4>
     {
-      searchResults.map(result => (
-        <h4 key={result.book_id}>{result.title}</h4>
+      searchResults.map(book => (
+        <LibrarySearchResultItemm
+          key={book.book_id}
+          book={book}
+        />
       ))
     }
   </Layout>

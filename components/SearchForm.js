@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { connect } from 'react-redux';
+import Router from 'next/router';
 import { searchLibrary } from '../redux/thunks/search';
 
 const SearchForm = ({ searchTerm, searchLibrary }) => {
   const handleSearch = (keywords, e) => {
     e.preventDefault();
-    searchLibrary(keywords);
+    searchLibrary(keywords)
+      .then(() => Router.push(`/library/search?q=${keywords}`));
   };
 
   const [keywords, setKeywords] = useState(searchTerm || '');

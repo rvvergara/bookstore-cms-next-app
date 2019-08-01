@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState } from 'react';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import { setErrors } from '../redux/actions/errors';
@@ -24,15 +24,6 @@ const UserForm = ({
   const [firstName, setFirstName] = useState(userData ? userData.first_name : '');
   const [lastName, setLastName] = useState(userData ? userData.last_name : '');
   const saveUser = isAuthenticated ? updateAccount : signUp;
-
-  const removeErrorMsg = useCallback(() => {
-    setErrors(null);
-  }, [setErrors]);
-
-  useEffect(() => {
-    removeErrorMsg();
-    return () => setErrors(null);
-  }, [removeErrorMsg, setErrors]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

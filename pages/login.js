@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import redirect from 'next-redirect';
 import { login } from '../redux/thunks/user';
+import { setErrors } from '../redux/actions/errors';
 import InputWrapper from '../components/InputWrapper';
 import Layout from '../components/Layout';
 import initialize from '../utils/initialize';
@@ -69,6 +70,7 @@ export const Login = ({
 Login.getInitialProps = (ctx) => {
   initialize(ctx);
   const { currentUser } = ctx.store.getState();
+  ctx.store.dispatch(setErrors(null));
   if (currentUser.authenticated) {
     return redirect(ctx, '/');
   }

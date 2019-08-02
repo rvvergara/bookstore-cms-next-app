@@ -3,7 +3,7 @@ import { listSearchResults } from '../actions/search';
 import { setSearchTerm } from '../actions/searchTerm';
 
 export const searchLibrary = keyword => async (dispatch) => {
-  const path = `/v2/search/books?q=${keyword}`;
+  const path = `/v1/search/books?q=${keyword}`;
   await fetchData('get', path)
     .then((res) => {
       dispatch(listSearchResults(res.data.books));

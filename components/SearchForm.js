@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import Router from 'next/router';
 import { setAuthorizationToken } from '../utils/api';
 import { searchLibrary } from '../redux/thunks/search';
-import { setSearchTerm } from '../redux/actions/searchTerm';
 
 const SearchForm = ({ searchTerm, searchLibrary, token }) => {
   setAuthorizationToken(token);

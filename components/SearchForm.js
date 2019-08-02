@@ -10,7 +10,7 @@ const SearchForm = ({ searchTerm, searchLibrary, token }) => {
   const handleSearch = (keywords, e) => {
     e.preventDefault();
     searchLibrary(keywords)
-      .then(() => Router.push(`/library/[search]?q=${keywords}`));
+      .then(() => Router.push(`/library/search?q=${keywords}`));
   };
 
   const [keywords, setKeywords] = useState(searchTerm || '');

@@ -6,6 +6,7 @@ import { fetchData, setAuthorizationToken } from '../../utils/api';
 import { setCookie, removeCookie } from '../../utils/cookie';
 import { listSearchResults } from '../actions/search';
 import { setSearchTerm } from '../actions/searchTerm';
+import { setCollection } from '../actions/collection';
 
 const setUserInStore = (user, dispatch) => {
   const { token } = user;
@@ -49,6 +50,7 @@ export const logout = () => dispatch => Promise.resolve()
     dispatch(setCurrentUser({ authenticated: false, data: null }));
     dispatch(setSearchTerm(''));
     dispatch(listSearchResults([]));
+    dispatch(setCollection([]));
   })
   .then(() => Router.push('/login'));
 

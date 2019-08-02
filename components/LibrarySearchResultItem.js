@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 const LibrarySearchResultItem = ({ book }) => {
   const {
     title, thumbnail, book_id, authors, description, subtitle,
@@ -8,12 +10,19 @@ const LibrarySearchResultItem = ({ book }) => {
         <img src={thumbnail} alt={title} />
       </div>
       <div className="book-result-item__infos">
-        <h3>
-          {title}
-          :
-          {' '}
-          {subtitle}
-        </h3>
+        <Link
+          href="/library/[book]"
+          as={`/library/${book_id}`}
+        >
+          <a>
+            <h3>
+              {title}
+              :
+              {' '}
+              {subtitle}
+            </h3>
+          </a>
+        </Link>
         <h4>
             By:
           {' '}

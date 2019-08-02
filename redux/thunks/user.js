@@ -31,7 +31,7 @@ const setErrorInStore = (err, dispatch) => {
 };
 
 export const login = loginParams => async (dispatch) => {
-  const path = '/v1/sessions';
+  const path = '/v2/sessions';
   try {
     const res = await fetchData('post', path, loginParams);
     const { user } = res.data;
@@ -53,7 +53,7 @@ export const logout = () => dispatch => Promise.resolve()
   .then(() => Router.push('/login'));
 
 export const signUp = signupParams => async (dispatch) => {
-  const path = '/v1/users';
+  const path = '/v2/users';
   try {
     const res = await fetchData('post', path, signupParams);
     const { user } = res.data;
@@ -65,7 +65,7 @@ export const signUp = signupParams => async (dispatch) => {
 };
 
 export const updateAccount = (userParams, usernameParam) => async (dispatch) => {
-  const path = `/v1/users/${usernameParam}`;
+  const path = `/v2/users/${usernameParam}`;
   try {
     const res = await fetchData('put', path, userParams);
     const { user } = res.data;
@@ -92,7 +92,7 @@ export const updateAccount = (userParams, usernameParam) => async (dispatch) => 
 };
 
 export const fetchUserData = username => async () => {
-  const path = `/v1/users/${username}`;
+  const path = `/v2/users/${username}`;
   try {
     const res = await fetchData('get', path);
     const { user } = res.data;

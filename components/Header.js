@@ -33,6 +33,9 @@ export const Header = ({ logout, currentUser }) => {
           </Link>
         </span>
         )}
+        <Link href="/library">
+          <a className="logout-btn">Books</a>
+        </Link>
         {currentUser.authenticated && currentUser.data.access_level > 1 && (
         <Link
           href="/admin"

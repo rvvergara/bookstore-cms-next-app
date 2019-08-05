@@ -5,7 +5,12 @@ import { fetchUpdatePage } from '../redux/thunks/collection';
 import { setErrors } from '../redux/actions/errors';
 
 const PageUpdateForm = ({
-  itemForUpdate, fetchUpdatePage, switchPageUpdate, username, setErrors, error,
+  itemForUpdate,
+  fetchUpdatePage,
+  switchPageUpdate,
+  username,
+  setErrors,
+  error,
 }) => {
   const { item_id, current_page } = itemForUpdate;
   const [page, setPage] = useState(current_page);
@@ -46,4 +51,8 @@ const mapStateToProps = state => ({
   error: state.errors ? state.errors.errors.current_page : null,
 });
 
-export default connect(mapStateToProps, { fetchUpdatePage, switchPageUpdate, setErrors })(PageUpdateForm);
+export default connect(mapStateToProps, {
+  fetchUpdatePage,
+  switchPageUpdate,
+  setErrors,
+})(PageUpdateForm);

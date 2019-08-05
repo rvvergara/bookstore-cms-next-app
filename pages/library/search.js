@@ -2,12 +2,12 @@ import { connect } from 'react-redux';
 import redirect from 'next-redirect';
 import initialize from '../../utils/initialize';
 import Layout from '../../components/Layout';
-import LibrarySearchResultItemm from '../../components/LibrarySearchResultItem';
+import LibrarySearchResult from '../../components/LibrarySearchResults';
 import SearchForm from '../../components/SearchForm';
 import { setAuthorizationToken } from '../../utils/api';
 import { searchLibrary } from '../../redux/thunks/search';
 
-const Search = ({ searchResults, searchTerm }) => (
+const Search = ({ searchTerm }) => (
   <Layout title={`Search - ${searchTerm}`}>
     <SearchForm />
     <h4 className="search-result-heading">
@@ -15,14 +15,7 @@ const Search = ({ searchResults, searchTerm }) => (
       {' '}
       {searchTerm}
     </h4>
-    {
-      searchResults.map(book => (
-        <LibrarySearchResultItemm
-          key={book.book_id}
-          book={book}
-        />
-      ))
-    }
+    <LibrarySearchResult />
   </Layout>
 );
 
@@ -32,18 +25,15 @@ Search.getInitialProps = async (ctx) => {
   if (!currentUser.authenticated) {
     return redirect(ctx, '/login');
   }
-  let searchResults;
-  let searchTerm;
   try {
     setAuthorizationToken(currentUser.data.token);
     const { store, query } = ctx;
     const { dispatch } = store;
-    searchResults = await dispatch(searchLibrary(query.q));
+    await dispatch(searchLibrary(query.q));
   } catch (err) {
-    searchResults = [];
-    searchTerm = '';
+    err;
   }
-  return { searchResults, searchTerm };
+  return { };
 };
 
 export default connect(state => state)(Search);

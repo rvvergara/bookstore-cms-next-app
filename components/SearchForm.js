@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import Router from 'next/router';
 import { setAuthorizationToken } from '../utils/api';
@@ -13,6 +13,10 @@ const SearchForm = ({ searchTerm, searchLibrary, token }) => {
   };
 
   const [keywords, setKeywords] = useState(searchTerm || '');
+
+  useEffect(() => {
+    setKeywords(searchTerm);
+  }, [searchTerm]);
 
   return (
     <div className="form-wrapper search-form">

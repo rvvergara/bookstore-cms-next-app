@@ -10,7 +10,6 @@ const Index = ({ currentUser }) => {
   try {
     setAuthorizationToken(currentUser.data.token);
   } catch (err) {
-    // console.log('Index Page Error', err);
     err;
   }
   return (

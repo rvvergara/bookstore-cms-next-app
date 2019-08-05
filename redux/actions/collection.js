@@ -1,9 +1,15 @@
 import {
+  ADD_ITEM,
   REMOVE_ITEM,
   SET_COLLECTION,
   SWITCH_PAGE_UPDATE,
   UPDATE_PAGE,
 } from './actionTypes';
+
+export const addItem = item => ({
+  type: ADD_ITEM,
+  item,
+});
 
 export const setCollection = collection => ({
   type: SET_COLLECTION,

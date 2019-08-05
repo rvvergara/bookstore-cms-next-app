@@ -1,38 +1,45 @@
 import { useRouter } from 'next/router';
+import { connect } from 'react-redux';
+import { fetchAddItem, fetchRemoveItem } from '../redux/thunks/collection';
 
 const Book = ({
-  title,
-  subtitle,
-  authors,
-  description,
-  thumbnail,
-  included,
+  book,
+  fetchAddItem,
+  fetchRemoveItem,
+  username,
 }) => {
   const router = useRouter();
+  const handleClick = () => {
+    if (book.included) {
+      fetchRemoveItem(username, book.item_id);
+    } else {
+      fetchAddItem(username, book);
+    }
+  };
   return (
     <div className="book-container">
       <h3>
-        {title}
+        {book.title}
         {' '}
 -
         {' '}
-        {subtitle}
+        {book.subtitle}
       </h3>
       <h4>
-        { authors }
+        { book.authors }
       </h4>
       <div>
-        <img src={thumbnail} alt={title} />
+        <img src={book.thumbnail} alt={book.title} />
         <p>
-          { description }
+          { book.description }
         </p>
         <div>
           <button
             type="button"
-            onClick={() => console.log('Hello')}
+            onClick={handleClick}
           >
             {
-              included ? 'Remove From Collection' : 'Add To Collection'
+              book.included ? 'Remove From Collection' : 'Add To Collection'
             }
           </button>
         </div>
@@ -51,4 +58,8 @@ const Book = ({
   );
 };
 
-export default Book;
+const mapStateToProps = state => ({
+  username: state.currentUser.data.username,
+});
+
+export default connect(mapStateToProps, { fetchAddItem, fetchRemoveItem })(Book);

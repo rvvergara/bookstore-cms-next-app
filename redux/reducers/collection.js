@@ -1,4 +1,5 @@
 import {
+  ADD_ITEM,
   REMOVE_ITEM,
   SET_COLLECTION,
   UPDATE_PAGE,
@@ -6,6 +7,8 @@ import {
 
 export default (state = [], action) => {
   switch (action.type) {
+    case ADD_ITEM:
+      return [...state, action.item];
     case SET_COLLECTION:
       return action.collection;
     case REMOVE_ITEM:

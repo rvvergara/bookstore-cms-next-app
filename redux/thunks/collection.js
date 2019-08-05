@@ -1,5 +1,10 @@
 import { fetchData } from '../../utils/api';
-import { setCollection, removeItem, updatePage } from '../actions/collection';
+import {
+  addItem,
+  setCollection,
+  removeItem,
+  updatePage,
+} from '../actions/collection';
 import { setErrors } from '../actions/errors';
 
 export const fetchCollection = username => async (dispatch) => {
@@ -10,6 +15,13 @@ export const fetchCollection = username => async (dispatch) => {
     .catch(err => err);
   dispatch(setCollection(data));
   return data;
+};
+
+export const fetchAddItem = (username, item) => (dispatch) => {
+  const path = `/v1/users/${username}/collection`;
+  return fetchData('post', path, item)
+    .then(() => dispatch(addItem(item)))
+    .catch(err => console.log(err.response.data));
 };
 
 export const fetchUpdatePage = (username, item_id, newPage) => (dispatch) => {

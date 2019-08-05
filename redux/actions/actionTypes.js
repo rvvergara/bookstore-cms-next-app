@@ -1,3 +1,4 @@
+export const ADD_ITEM = 'ADD_ITEM';
 export const LIST_SEARCH_RESULTS = 'LIST_SEARCH_RESULTS';
 export const REMOVE_ITEM = 'REMOVE_ITEM';
 export const SET_COLLECTION = 'SET_COLLECTION';

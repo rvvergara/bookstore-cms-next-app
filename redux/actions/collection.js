@@ -10,9 +10,9 @@ export const setCollection = collection => ({
   collection,
 });
 
-export const removeItem = id => ({
+export const removeItem = item_id => ({
   type: REMOVE_ITEM,
-  id,
+  item_id,
 });
 
 export const switchPageUpdate = item_id => ({

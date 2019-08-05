@@ -9,7 +9,7 @@ export default (state = [], action) => {
     case SET_COLLECTION:
       return action.collection;
     case REMOVE_ITEM:
-      return state.filter(item => item.id !== action.id);
+      return state.filter(item => item.item_id !== action.item_id);
     case UPDATE_PAGE:
     {
       const { item_id, newPage } = action;

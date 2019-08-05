@@ -1,10 +1,14 @@
 import { connect } from 'react-redux';
 import CollectionItem from './CollectionItem';
 import SearchForm from './SearchForm';
+import PageUpdateModal from './PageUpdateModal';
 
-const Collection = ({ collection }) => (
+const Collection = ({ collection, isUpdateOn }) => (
   <div>
     <SearchForm />
+    {
+      isUpdateOn && <PageUpdateModal />
+    }
     {collection.map(item => (
       <CollectionItem
         key={item.id}
@@ -16,5 +20,6 @@ const Collection = ({ collection }) => (
 
 const mapStateToProps = state => ({
   collection: state.collection,
+  isUpdateOn: state.pageUpdateMode.on,
 });
 export default connect(mapStateToProps)(Collection);

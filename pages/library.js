@@ -11,7 +11,21 @@ const Library = ({ books, page, count: maxCount }) => {
   const currentCount = books.length + (page - 1) * 10;
   return (
     <Layout title="Books">
-      <h3>BOOKS HERE ON PAGE</h3>
+      <h3>
+        Showing
+        {' '}
+        {currentCount - books.length + 1}
+        {' '}
+        to
+        {' '}
+        {currentCount}
+        {' '}
+        of
+        {' '}
+        {maxCount}
+        {' '}
+        books
+      </h3>
       {
       books.map(book => (
         <LibrarySearchResultItem

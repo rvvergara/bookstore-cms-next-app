@@ -1,6 +1,7 @@
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
 import { switchPageUpdate } from '../redux/actions/collection';
+import PageUpdateForm from './PageUpdateForm';
 
 const PageUpdateModal = ({
   itemForUpdate,
@@ -14,6 +15,7 @@ const PageUpdateModal = ({
     onRequestClose={() => switchPageUpdate()}
   >
     <h3>{itemForUpdate.title}</h3>
+    <PageUpdateForm />
   </Modal>
 );
 

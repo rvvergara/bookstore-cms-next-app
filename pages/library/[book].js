@@ -2,19 +2,17 @@ import { connect } from 'react-redux';
 import redirect from 'next-redirect';
 import initialize from '../../utils/initialize';
 import Layout from '../../components/Layout';
+import Book from '../../components/Book';
 import { setAuthorizationToken } from '../../utils/api';
 import { fetchBook } from '../../redux/thunks/library';
 
-const Book = ({ book }) => (
+const BookPage = ({ book }) => (
   <Layout title={`${book.title}`}>
-    <h3>{book.title}</h3>
-    <div>
-      <img src={book.thumbnail} alt={book.title} />
-    </div>
+    <Book {...book} />
   </Layout>
 );
 
-Book.getInitialProps = async (ctx) => {
+BookPage.getInitialProps = async (ctx) => {
   initialize(ctx);
   const { store, query } = ctx;
   const { currentUser } = store.getState();
@@ -32,4 +30,4 @@ Book.getInitialProps = async (ctx) => {
   return { book };
 };
 
-export default connect(state => state)(Book);
+export default connect(state => state)(BookPage);

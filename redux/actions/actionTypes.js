@@ -5,3 +5,5 @@ export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 export const SET_ERRORS = 'SET_ERRORS';
 export const SET_SEARCH_TERM = 'SET_SEARCH_TERM';
 export const SET_BOOK = 'SET_BOOK';
+export const SWITCH_PAGE_UPDATE = 'SWITCH_PAGE_UPDATE';
+export const UPDATE_PAGE = 'UPDATE_PAGE';

@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 const LibrarySearchResultItem = ({ book }) => {
   const {
-    title, thumbnail, book_id, authors, description, subtitle,
+    title, thumbnail, book_id, authors, description, subtitle, included,
   } = book;
   return (
     <div className="book-result-item__details">
@@ -20,6 +20,9 @@ const LibrarySearchResultItem = ({ book }) => {
               :
               {' '}
               {subtitle}
+              {
+                included && <button>In collection</button>
+            }
             </h3>
           </a>
         </Link>

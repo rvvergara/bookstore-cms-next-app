@@ -8,7 +8,7 @@ import { fetchBook } from '../../redux/thunks/library';
 
 const BookPage = ({ book }) => (
   <Layout title={`${book.title}`}>
-    <Book book={book} />
+    <Book />
   </Layout>
 );
 

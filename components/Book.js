@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import { connect } from 'react-redux';
 import { fetchAddItem, fetchRemoveItem } from '../redux/thunks/collection';
 import { setAuthorizationToken } from '../utils/api';
+import { setBook } from '../redux/actions/book';
 
 const Book = ({
   book,
@@ -62,8 +63,9 @@ const Book = ({
 };
 
 const mapStateToProps = state => ({
+  book: state.book,
   username: state.currentUser.data.username,
   token: state.currentUser.data.token,
 });
 
-export default connect(mapStateToProps, { fetchAddItem, fetchRemoveItem })(Book);
+export default connect(mapStateToProps, { fetchAddItem, fetchRemoveItem, setBook })(Book);

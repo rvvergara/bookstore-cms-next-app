@@ -1,15 +1,18 @@
 import { useRouter } from 'next/router';
 import { connect } from 'react-redux';
 import { fetchAddItem, fetchRemoveItem } from '../redux/thunks/collection';
+import { setAuthorizationToken } from '../utils/api';
 
 const Book = ({
   book,
   fetchAddItem,
   fetchRemoveItem,
   username,
+  token,
 }) => {
   const router = useRouter();
   const handleClick = () => {
+    setAuthorizationToken(token);
     if (book.included) {
       fetchRemoveItem(username, book.item_id);
     } else {
@@ -60,6 +63,7 @@ const Book = ({
 
 const mapStateToProps = state => ({
   username: state.currentUser.data.username,
+  token: state.currentUser.data.token,
 });
 
 export default connect(mapStateToProps, { fetchAddItem, fetchRemoveItem })(Book);

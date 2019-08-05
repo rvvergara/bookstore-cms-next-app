@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
+import Link from 'next/link';
 import Progress from './Progress';
 import CurrentPage from './CurrentPage';
 import { fetchRemoveItem } from '../redux/thunks/collection';
-import Layout from './Layout';
 import PageUpdateBtn from './PageUpdateBtn';
 
 const CollectionItem = ({
@@ -14,6 +14,7 @@ const CollectionItem = ({
     title,
     category,
     authors,
+    book_id,
     item_id,
     owner_id,
     current_page,
@@ -27,7 +28,14 @@ const CollectionItem = ({
           <div className="columns">
             <div className="book-info">
               <h4 className="genre">{category}</h4>
-              <h3 className="title">{title}</h3>
+              <Link
+                href="/library/[book]"
+                as={`/library/${book_id}`}
+              >
+                <a>
+                  <h3 className="title">{title}</h3>
+                </a>
+              </Link>
               <p>
               by:&nbsp;
                 {authors}

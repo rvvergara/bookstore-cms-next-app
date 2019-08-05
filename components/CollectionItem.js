@@ -3,6 +3,7 @@ import Progress from './Progress';
 import CurrentPage from './CurrentPage';
 import { fetchRemoveItem } from '../redux/thunks/collection';
 import Layout from './Layout';
+import PageUpdateBtn from './PageUpdateBtn';
 
 const CollectionItem = ({
   item,
@@ -13,7 +14,7 @@ const CollectionItem = ({
     title,
     category,
     authors,
-    id,
+    item_id,
     owner_id,
     current_page,
     page_count,
@@ -37,7 +38,7 @@ const CollectionItem = ({
                 <button
                   className="btn btn-link"
                   type="button"
-                  onClick={() => fetchRemoveItem(username, id)}
+                  onClick={() => fetchRemoveItem(username, item_id)}
                 >
                 Remove
                 </button>
@@ -53,7 +54,9 @@ const CollectionItem = ({
             </div>
             <div className="chapter-info">
               <CurrentPage currentPage={String(current_page)} />
-              <div>Progress update component here</div>
+              <div className="progress">
+                <PageUpdateBtn item_id={item_id} />
+              </div>
             </div>
           </div>
         </div>

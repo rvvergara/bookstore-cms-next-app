@@ -17,6 +17,6 @@ export const fetchBooksFromLibrary = page => async (dispatch) => {
   return fetchData('get', path)
     .then((res) => {
       dispatch(setDisplayedBooks(res.data.books));
-      return res.data.books;
+      return { books: res.data.books, count: res.data.count };
     });
 };

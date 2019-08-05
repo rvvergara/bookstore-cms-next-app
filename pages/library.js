@@ -3,18 +3,24 @@ import redirect from 'next-redirect';
 import Link from 'next/link';
 import initialize from '../utils/initialize';
 import Layout from '../components/Layout';
+import LibrarySearchResultItem from '../components/LibrarySearchResultItem';
 import { setAuthorizationToken } from '../utils/api';
 import { fetchBooksFromLibrary } from '../redux/thunks/library';
 
-const Library = ({ books, page }) => (
-  <Layout title="Books">
-    <h3>BOOKS HERE ON PAGE</h3>
-    {
+const Library = ({ books, page, count: maxCount }) => {
+  const currentCount = books.length + (page - 1) * 10;
+  return (
+    <Layout title="Books">
+      <h3>BOOKS HERE ON PAGE</h3>
+      {
       books.map(book => (
-        <h4 key={book.book_id}>{book.title}</h4>
+        <LibrarySearchResultItem
+          key={book.book_id}
+          book={book}
+        />
       ))
     }
-    {
+      {
       page > 1 && (
         <Link href={`/library?page=${page - 1}`}>
           <a>
@@ -23,13 +29,18 @@ const Library = ({ books, page }) => (
         </Link>
       )
     }
-    <Link href={`/library?page=${page + 1}`}>
-      <a>
+      {
+        currentCount < maxCount && (
+        <Link href={`/library?page=${page + 1}`}>
+          <a>
         Next Page
-      </a>
-    </Link>
-  </Layout>
-);
+          </a>
+        </Link>
+        )
+    }
+    </Layout>
+  );
+};
 
 Library.getInitialProps = async (ctx) => {
   initialize(ctx);
@@ -40,13 +51,17 @@ Library.getInitialProps = async (ctx) => {
     return redirect(ctx, '/login');
   }
   let books;
+  let count;
   try {
     setAuthorizationToken(currentUser.data.token);
-    books = await store.dispatch(fetchBooksFromLibrary(page));
+    const data = await store.dispatch(fetchBooksFromLibrary(page));
+    books = data.books;
+    count = data.count;
   } catch (err) {
     books = [];
+    count = 0;
   }
-  return { books, page };
+  return { books, count, page };
 };
 
 export default connect(state => state)(Library);

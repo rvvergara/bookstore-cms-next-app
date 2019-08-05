@@ -7,7 +7,7 @@ const PageUpdateBtn = ({ switchPageUpdate, item_id }) => (
     type="button"
     onClick={() => switchPageUpdate(item_id)}
   >
-    Update Progress
+    Update Page
   </button>
 );
 

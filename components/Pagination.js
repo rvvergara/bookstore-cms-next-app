@@ -20,7 +20,7 @@ const Pagination = ({ pages, queryPage, path }) => (
           return (
             <Link
               key={page}
-              href={`/library?page=${page}`}
+              href={`${path}&page=${page}`}
             >
               <a
                 className={`page-number ${activeClass}`}
@@ -36,7 +36,7 @@ const Pagination = ({ pages, queryPage, path }) => (
     {
     queryPage < pages.length && (
       <Link
-        href={`/library?page=${queryPage + 1}`}
+        href={`${path}&page=${queryPage + 1}`}
       >
         <a className="next-link page-sequence">
         Next

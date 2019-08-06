@@ -6,24 +6,35 @@ import Library from '../../components/Library';
 import SearchForm from '../../components/SearchForm';
 import { setAuthorizationToken } from '../../utils/api';
 import { searchLibrary } from '../../redux/thunks/search';
+import Pagination from '../../components/Pagination';
 
-const Search = ({ searchTerm, count }) => (
-  <Layout title={`Search - ${searchTerm}`}>
-    <SearchForm />
-    <h4 className="search-result-heading">
-      { count }
-      {' '}
+const Search = ({ searchTerm, count: maxCount, page }) => {
+  const pagesCount = Math.ceil(maxCount / 10);
+  const pageNumbers = [...Array(pagesCount).keys()].map(el => el + 1);
+  return (
+    <Layout title={`Search - ${searchTerm}`}>
+      <SearchForm />
+      <h4 className="search-result-heading">
+        { maxCount }
+        {' '}
     Search results for
-      {' '}
-      {searchTerm}
-    </h4>
-    <Library />
-  </Layout>
-);
+        {' '}
+        {searchTerm}
+      </h4>
+      <Library />
+      <Pagination
+        pages={pageNumbers}
+        queryPage={page}
+        path={`/library/search?q=${searchTerm}`}
+      />
+    </Layout>
+  );
+};
 
 Search.getInitialProps = async (ctx) => {
   initialize(ctx);
   const { currentUser } = ctx.store.getState();
+  const page = Number(ctx.query.page) || 1;
   if (!currentUser.authenticated) {
     return redirect(ctx, '/login');
   }
@@ -38,7 +49,7 @@ Search.getInitialProps = async (ctx) => {
     err;
     count = 0;
   }
-  return { count };
+  return { count, page };
 };
 
 export default connect(state => state)(Search);

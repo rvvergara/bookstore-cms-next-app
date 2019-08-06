@@ -1,0 +1,39 @@
+.pagination {
+  display: flex;
+  font-family: Roboto;
+  margin: 1rem 0;
+  padding: 1rem 0;
+
+  a {
+    color: $deep-blue;
+  }
+}
+
+.page-sequence {
+  border: 1px solid $translucent-black;
+  padding: 0.5rem;
+}
+
+.previous-link {
+  margin-right: 0.5rem;
+}
+
+.next-link {
+  margin-left: 0.5rem;
+}
+
+.page-numbers-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.page-number {
+  border: 1px solid $translucent-black;
+  padding: 0.25rem 0.75rem;
+  margin: 0 0.1rem;
+}
+
+a.active-page {
+  background: $deep-blue;
+  color: white;
+}

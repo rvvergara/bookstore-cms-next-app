@@ -28,10 +28,6 @@ const LibraryPage = ({ books, page, count: maxCount }) => {
         {' '}
         books
       </h3>
-      <Pagination
-        pages={pageNumbers}
-        queryPage={page}
-      />
       <Library />
       <Pagination
         pages={pageNumbers}

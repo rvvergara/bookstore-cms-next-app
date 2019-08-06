@@ -29,7 +29,7 @@ Search.getInitialProps = async (ctx) => {
     setAuthorizationToken(currentUser.data.token);
     const { store, query } = ctx;
     const { dispatch } = store;
-    await dispatch(searchLibrary(query.q));
+    await dispatch(searchLibrary(query.q, query.page));
   } catch (err) {
     err;
   }

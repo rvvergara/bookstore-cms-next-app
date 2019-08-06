@@ -25,6 +25,7 @@ module.exports = {
     'no-shadow': 0,
     'import/no-extraneous-dependencies': 0,
     'camelcase': 0,
-    'react/react-in-jsx-scope': 0
+    'react/react-in-jsx-scope': 0,
+    'import/prefer-default-export': 0
   },
 };

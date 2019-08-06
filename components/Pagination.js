@@ -1,11 +1,11 @@
 import Link from 'next/link';
 
-const Pagination = ({ pages, queryPage }) => (
+const Pagination = ({ pages, queryPage, path }) => (
   <footer className="pagination">
     {
       queryPage > 1 && (
         <Link
-          href={`/library?page=${queryPage - 1}`}
+          href={`${path}page=${queryPage - 1}`}
         >
           <a className="previous-link page-sequence">
             Previous

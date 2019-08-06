@@ -32,6 +32,7 @@ const LibraryPage = ({ books, page, count: maxCount }) => {
       <Pagination
         pages={pageNumbers}
         queryPage={page}
+        path="/library?"
       />
     </Layout>
   );

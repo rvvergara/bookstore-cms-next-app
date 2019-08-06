@@ -62,7 +62,7 @@ const CollectionItem = ({
           </div>
           <div className="chapter-info">
             <CurrentPage currentPage={String(current_page)} />
-            {currentUser.data && router.query.username === currentUser.data.username && (
+            {currentUser.data && (router.query.username === currentUser.data.username || router.pathname === '/') && (
               <div className="progress">
                 <PageUpdateBtn item_id={item_id} />
               </div>

@@ -1,14 +1,16 @@
 import { connect } from 'react-redux';
 import redirect from 'next-redirect';
-import Link from 'next/link';
 import initialize from '../utils/initialize';
 import Layout from '../components/Layout';
 import Library from '../components/Library';
+import Pagination from '../components/Pagination';
 import { setAuthorizationToken } from '../utils/api';
 import { fetchBooksFromLibrary } from '../redux/thunks/library';
 
 const LibraryPage = ({ books, page, count: maxCount }) => {
   const currentCount = books.length + (page - 1) * 10;
+  const pagesCount = Math.ceil(maxCount / 10);
+  const pageNumbers = [...Array(pagesCount).keys()].map(el => el + 1);
   return (
     <Layout title="Books">
       <h3>
@@ -26,25 +28,15 @@ const LibraryPage = ({ books, page, count: maxCount }) => {
         {' '}
         books
       </h3>
+      <Pagination
+        pages={pageNumbers}
+        queryPage={page}
+      />
       <Library />
-      {
-      page > 1 && (
-        <Link href={`/library?page=${page - 1}`}>
-          <a>
-            Previous Page
-          </a>
-        </Link>
-      )
-    }
-      {
-        currentCount < maxCount && (
-        <Link href={`/library?page=${page + 1}`}>
-          <a>
-        Next Page
-          </a>
-        </Link>
-        )
-    }
+      <Pagination
+        pages={pageNumbers}
+        queryPage={page}
+      />
     </Layout>
   );
 };

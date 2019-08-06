@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import redirect from 'next-redirect';
 import initialize from '../../utils/initialize';
 import Layout from '../../components/Layout';
-import LibrarySearchResult from '../../components/LibrarySearchResults';
+import Library from '../../components/Library';
 import SearchForm from '../../components/SearchForm';
 import { setAuthorizationToken } from '../../utils/api';
 import { searchLibrary } from '../../redux/thunks/search';
@@ -15,7 +15,7 @@ const Search = ({ searchTerm }) => (
       {' '}
       {searchTerm}
     </h4>
-    <LibrarySearchResult />
+    <Library />
   </Layout>
 );
 

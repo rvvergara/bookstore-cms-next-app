@@ -42,7 +42,7 @@ const CollectionItem = ({
             </p>
             <div className="action">
               {
-              currentUser.data.id === owner_id && (
+              currentUser.data && currentUser.data.id === owner_id && (
               <button
                 className="btn btn-link"
                 type="button"
@@ -62,7 +62,7 @@ const CollectionItem = ({
           </div>
           <div className="chapter-info">
             <CurrentPage currentPage={String(current_page)} />
-            {router.query.username === currentUser.data.username && (
+            {currentUser.data && router.query.username === currentUser.data.username && (
               <div className="progress">
                 <PageUpdateBtn item_id={item_id} />
               </div>

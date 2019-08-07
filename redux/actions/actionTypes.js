@@ -1,5 +1,6 @@
 export const ADD_ITEM = 'ADD_ITEM';
 export const LIST_SEARCH_RESULTS = 'LIST_SEARCH_RESULTS';
+export const LIST_USERS = 'LIST_USERS';
 export const REMOVE_ITEM = 'REMOVE_ITEM';
 export const SET_COLLECTION = 'SET_COLLECTION';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';

@@ -16,7 +16,7 @@ const UserList = ({ users, currentUser }) => (
     </thead>
     <tbody>
       {
-        users.filter(({ id }) => id !== currentUser.data.id).map(user => (
+        currentUser.data && users.filter(({ id }) => id !== currentUser.data.id).map(user => (
           <UserManagementPanel
             key={user.id}
             user={user}

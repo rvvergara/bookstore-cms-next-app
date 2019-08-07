@@ -7,6 +7,7 @@ import displayedBooks from './library';
 import pageUpdateMode from './pageUpdateMode';
 import searchResults from './search';
 import searchTerm from './searchTerm';
+import users from './users';
 
 export default combineReducers({
   book,
@@ -17,4 +18,5 @@ export default combineReducers({
   pageUpdateMode,
   searchResults,
   searchTerm,
+  users,
 });

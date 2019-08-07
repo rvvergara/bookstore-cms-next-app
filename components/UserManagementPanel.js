@@ -8,10 +8,18 @@ const UserManagementPanel = ({ user }) => {
 
   return (
     <tr key={user.id}>
-      <td>{`${user.first_name} ${user.last_name}`}</td>
-      <td>{user.username}</td>
-      <td>{user.email}</td>
-      <td>{user.access_level}</td>
+      <td className="name-col">
+        <Link href={`/users/${username}`}>
+          <a>
+            {`${user.first_name} ${user.last_name}`}
+          </a>
+        </Link>
+      </td>
+      <td className="username-col">
+        {user.username}
+      </td>
+      <td className="email-col">{user.email}</td>
+      <td className="admin-col">{user.access_level}</td>
     </tr>
   );
 };

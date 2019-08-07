@@ -8,10 +8,10 @@ const UserList = ({ users }) => (
   <table>
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Username</th>
-        <th>Email</th>
-        <th>Admin?</th>
+        <th className="name-col">Name</th>
+        <th className="username-col">Username</th>
+        <th className="email-col">Email</th>
+        <th className="admin-col">Admin?</th>
       </tr>
     </thead>
     <tbody>

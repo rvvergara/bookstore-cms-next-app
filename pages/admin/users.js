@@ -26,7 +26,7 @@ const UsersPageForAdmin = ({ users, count, page }) => {
         {' '}
         of
         {' '}
-        {count}
+        {count - 1}
         {' '}
         users
       </h4>

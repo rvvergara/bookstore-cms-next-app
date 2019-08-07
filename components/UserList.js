@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { listUsers } from '../redux/actions/user';
 import UserManagementPanel from './UserManagementPanel';
 
-const UserList = ({ users }) => (
+const UserList = ({ users, currentUser }) => (
   <table>
     <thead>
       <tr>
@@ -16,7 +16,7 @@ const UserList = ({ users }) => (
     </thead>
     <tbody>
       {
-        users.map(user => (
+        users.filter(({ id }) => id !== currentUser.data.id).map(user => (
           <UserManagementPanel
             key={user.id}
             user={user}
@@ -29,6 +29,7 @@ const UserList = ({ users }) => (
 
 const mapStateToProps = state => ({
   users: state.users,
+  currentUser: state.currentUser,
 });
 
 export default connect(mapStateToProps)(UserList);

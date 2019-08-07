@@ -1,15 +1,19 @@
 import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 import { setAuthorizationToken } from '../utils/api';
-import { searchLibrary } from '../redux/thunks/search';
+import { searchLibrary, searchGoogle } from '../redux/thunks/search';
 
-const SearchForm = ({ searchTerm, searchLibrary, token }) => {
-  setAuthorizationToken(token);
+const SearchForm = ({
+  searchTerm, searchLibrary, searchGoogle, token,
+}) => {
+  const router = useRouter();
+  const searchMethod = router.pathname.includes('admin') ? searchGoogle : searchLibrary;
   const handleSearch = (keywords, e) => {
+    setAuthorizationToken(token);
     e.preventDefault();
-    searchLibrary(keywords)
-      .then(() => Router.push(`/library/search?q=${keywords}`));
+    searchMethod(keywords);
+    // .then(() => router.push(`/library/search?q=${keywords}`));
   };
 
   const [keywords, setKeywords] = useState(searchTerm || '');
@@ -45,4 +49,4 @@ const mapStateToProps = state => ({
   searchTerm: state.searchTerm,
 });
 
-export default connect(mapStateToProps, { searchLibrary })(SearchForm);
+export default connect(mapStateToProps, { searchLibrary, searchGoogle })(SearchForm);

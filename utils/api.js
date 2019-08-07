@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { getUnique, sanitizeBooks } from './arrayProcessing';
+
 
 export const fetchData = async (method, path, data) => {
   const baseUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : process.env.API_URL;
@@ -12,4 +14,13 @@ export const setAuthorizationToken = (token) => {
   } else {
     delete axios.defaults.headers.common.Authorization;
   }
+};
+
+export const googleBookSearch = async (keyword, queryPage) => {
+  const path = `https://www.googleapis.com/books/v1/volumes?q=${keyword}&maxResults=40&startIndex=${startIndex}&orderBy=relevance&key=AIzaSyBAnRcfwnf_nZkUwPl_6KQmBadxh7nmnMU`;
+
+  setAuthorizationToken(false);
+  const rawItems = await axios.get(path);
+
+  return rawItems;
 };

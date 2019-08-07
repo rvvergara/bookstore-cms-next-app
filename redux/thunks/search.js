@@ -1,4 +1,4 @@
-import { fetchData } from '../../utils/api';
+import { fetchData, googleBookSearch } from '../../utils/api';
 import { listSearchResults } from '../actions/search';
 import { setSearchTerm } from '../actions/searchTerm';
 import { getUnique, sanitizeBooks } from '../../utils/arrayProcessing';
@@ -14,17 +14,14 @@ export const searchLibrary = (keyword, page) => async (dispatch) => {
     .catch(err => console.log(err));
 };
 
-export const googleBookSearch = (keyword, queryPage) => async (dispatch) => {
-  const page = queryPage || 1;
-  const startIndex = (page - 1) * 40;
-  const path = `https://www.googleapis.com/books/v1/volumes?q=${keyword}&maxResults=40&startIndex=${startIndex}&orderBy=relevance`;
-
-  const rawItems = await fetchData('get', path).then(res => res.data.items)
-    .then(books => sanitizeBooks(books))
-    .then(sanitizedBooks => getUnique(sanitizedBooks))
-    .then(uniqueItems => uniqueItems.slice(startIndex, 10))
-    .then(googleBooks => dispatch(listSearchResults(googleBooks)))
-    .catch(err => console.log(err));
-
-  return rawItems;
-};
+export const searchGoogle = (keyword, page) => async dispatch => googleBookSearch(keyword, page)
+  .then(res => res.data.items.map(({ id, volumeInfo }) => ({ id, ...volumeInfo })))
+  .then(rawBooks => getUnique(rawBooks, 'id'))
+  .then(uniqueBooks => sanitizeBooks(uniqueBooks))
+  .then((validBooks) => {
+    const queryPage = page || 1;
+    const startIndex = (queryPage - 1) * 40;
+    dispatch(listSearchResults(validBooks.slice(startIndex, 10)));
+  })
+  .then(() => dispatch(setSearchTerm(keyword)))
+  .catch(() => console.log('ERRORS'));

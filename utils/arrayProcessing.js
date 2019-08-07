@@ -6,13 +6,11 @@ export const getUnique = (arr, comp) => {
   return unique;
 };
 
-export const sanitizeBooks = (books) => {
-  return books..filter(
-    book => book.imageLinks
+export const sanitizeBooks = books => books.filter(
+  book => book.imageLinks
     && book.description
     && book.authors
     && book.subtitle
     && book.categories
-    && book.pageCount);
-}
-
+    && book.pageCount,
+);

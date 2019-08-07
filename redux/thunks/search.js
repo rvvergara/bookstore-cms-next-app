@@ -4,7 +4,9 @@ import { setSearchTerm } from '../actions/searchTerm';
 import { getUnique, sanitizeBooks } from '../../utils/arrayProcessing';
 
 export const searchLibrary = (keyword, page) => async (dispatch) => {
-  const path = page ? `/v1/search/books?q=${keyword};page=${page}` : `/v1/search/books?q=${keyword}`;
+  const path = page
+    ? `/v1/search/books?q=${keyword};page=${page}`
+    : `/v1/search/books?q=${keyword}`;
   return fetchData('get', path)
     .then((res) => {
       dispatch(listSearchResults(res.data.books));
@@ -15,13 +17,14 @@ export const searchLibrary = (keyword, page) => async (dispatch) => {
 };
 
 export const searchGoogle = (keyword, page) => async dispatch => googleBookSearch(keyword, page)
-  .then(res => res.data.items.map(({ id, volumeInfo }) => ({ id, ...volumeInfo })))
+  .then((res) => {
+    const books = res.data.items.map(({ id, volumeInfo }) => ({ id, ...volumeInfo }));
+    return books;
+  })
   .then(rawBooks => getUnique(rawBooks, 'id'))
   .then(uniqueBooks => sanitizeBooks(uniqueBooks))
   .then((validBooks) => {
-    const queryPage = page || 1;
-    const startIndex = (queryPage - 1) * 40;
-    dispatch(listSearchResults(validBooks.slice(startIndex, 10)));
+    dispatch(listSearchResults(validBooks.slice(0, 10)));
   })
   .then(() => dispatch(setSearchTerm(keyword)))
-  .catch(() => console.log('ERRORS'));
+  .catch(err => console.log('ERRORS HERE', err));

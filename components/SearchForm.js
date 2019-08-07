@@ -12,8 +12,10 @@ const SearchForm = ({
   const handleSearch = (keywords, e) => {
     setAuthorizationToken(token);
     e.preventDefault();
-    searchMethod(keywords);
-    // .then(() => router.push(`/library/search?q=${keywords}`));
+    const pushPath = router.pathname.includes('admin')
+      ? `/admin/library/search?q=${keywords}`
+      : `/library/search?q=${keywords}`;
+    searchMethod(keywords).then(() => router.push(pushPath));
   };
 
   const [keywords, setKeywords] = useState(searchTerm || '');
@@ -37,7 +39,7 @@ const SearchForm = ({
           className="add-book-btn btn-sm"
           onClick={e => handleSearch(keywords, e)}
         >
-            Search
+          Search
         </button>
       </form>
     </div>
@@ -49,4 +51,7 @@ const mapStateToProps = state => ({
   searchTerm: state.searchTerm,
 });
 
-export default connect(mapStateToProps, { searchLibrary, searchGoogle })(SearchForm);
+export default connect(
+  mapStateToProps,
+  { searchLibrary, searchGoogle },
+)(SearchForm);

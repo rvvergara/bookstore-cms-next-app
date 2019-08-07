@@ -1,12 +1,13 @@
 import Router from 'next/router';
 import decode from 'jwt-decode';
-import { setCurrentUser } from '../actions/user';
+import { setCurrentUser, listUsers } from '../actions/user';
 import { setErrors } from '../actions/errors';
 import { fetchData, setAuthorizationToken } from '../../utils/api';
 import { setCookie, removeCookie } from '../../utils/cookie';
 import { listSearchResults } from '../actions/search';
 import { setSearchTerm } from '../actions/searchTerm';
 import { setCollection } from '../actions/collection';
+
 
 const setUserInStore = (user, dispatch) => {
   const { token } = user;
@@ -99,6 +100,17 @@ export const fetchUserData = username => async () => {
     const res = await fetchData('get', path);
     const { user } = res.data;
     return user;
+  } catch (err) {
+    return Promise.reject(err.response.data.message);
+  }
+};
+
+export const fetchUsers = page => async (dispatch) => {
+  const path = page ? `/v1/users?page=${page}` : '/v1/users';
+  try {
+    const data = await fetchData('get', path).then(res => res.data);
+    dispatch(listUsers(data.users));
+    return { users: data.users, count: data.count };
   } catch (err) {
     return Promise.reject(err.response.data.message);
   }

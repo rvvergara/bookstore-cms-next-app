@@ -42,6 +42,10 @@ const UserManagementPanel = ({
             {`${first_name} ${last_name}`}
           </a>
         </Link>
+        {
+          access_level > 1 && (
+            <small>Admin</small>)
+        }
       </td>
       <td className="username-col">
         {username}

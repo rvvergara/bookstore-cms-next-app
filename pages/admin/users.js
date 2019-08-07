@@ -3,6 +3,7 @@ import redirect from 'next-redirect';
 import initialize from '../../utils/initialize';
 import Layout from '../../components/Layout';
 import Pagination from '../../components/Pagination';
+import UserList from '../../components/UserList';
 import { setAuthorizationToken } from '../../utils/api';
 import { fetchUsers } from '../../redux/thunks/user';
 
@@ -28,9 +29,7 @@ const UsersPageForAdmin = ({ users, count, page }) => {
         {' '}
         users
       </h4>
-      {
-      users.map(user => <h5 key={user.id}>{user.first_name}</h5>)
-    }
+      <UserList />
       <Pagination
         pages={pageNumbers}
         queryPage={page}

@@ -18,7 +18,7 @@ const UsersPageForAdmin = ({ users, count, page }) => {
       <h4>
         Showing
         {' '}
-        {shownCount}
+        {page === 1 ? shownCount + 1 : shownCount}
         {' '}
         to
         {' '}
@@ -26,7 +26,7 @@ const UsersPageForAdmin = ({ users, count, page }) => {
         {' '}
         of
         {' '}
-        {count - 1}
+        {count}
         {' '}
         users
       </h4>

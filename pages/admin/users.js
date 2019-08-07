@@ -6,6 +6,7 @@ import Pagination from '../../components/Pagination';
 import UserList from '../../components/UserList';
 import { setAuthorizationToken } from '../../utils/api';
 import { fetchUsers } from '../../redux/thunks/user';
+import { setErrors } from '../../redux/actions/errors';
 
 const UsersPageForAdmin = ({ users, count, page }) => {
   const currentCount = users.length + (page - 1) * 10;
@@ -46,6 +47,9 @@ UsersPageForAdmin.getInitialProps = async (ctx) => {
   const page = Number(query.page) || 1;
   if (!currentUser.authenticated) {
     return redirect(ctx, '/login');
+  }
+  if (currentUser.data.access_level < 3) {
+    return redirect(ctx, '/admin');
   }
   let users;
   let count;

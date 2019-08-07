@@ -5,12 +5,15 @@ import initialize from '../utils/initialize';
 import Layout from '../components/Layout';
 import { setAuthorizationToken } from '../utils/api';
 
-const AdminPage = () => (
+const AdminPage = ({ currentUser }) => (
   <Layout title="Admin">
     <div>
-      <Link href="/admin/users">
-        <a>Manage Users</a>
-      </Link>
+      {
+        currentUser.data && currentUser.data.access_level > 2 && (
+        <Link href="/admin/users">
+          <a>Manage Users</a>
+        </Link>
+        )}
     </div>
     <div>
       <Link href="/admin/library">
@@ -26,6 +29,9 @@ AdminPage.getInitialProps = async (ctx) => {
   const { currentUser } = store.getState();
   if (!currentUser.authenticated) {
     return redirect(ctx, '/login');
+  }
+  if (currentUser.data.access_level < 2) {
+    return redirect(ctx, '/');
   }
   try {
     setAuthorizationToken(currentUser.data.token);

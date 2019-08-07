@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { connect } from 'react-redux';
 import { listUsers } from '../redux/actions/user';
+import UserManagementPanel from './UserManagementPanel';
 
 const UserList = ({ users }) => (
   <table>
@@ -16,12 +17,10 @@ const UserList = ({ users }) => (
     <tbody>
       {
         users.map(user => (
-          <tr key={user.id}>
-            <td>{`${user.first_name} ${user.last_name}`}</td>
-            <td>{user.username}</td>
-            <td>{user.email}</td>
-            <td>{user.access_level}</td>
-          </tr>
+          <UserManagementPanel
+            key={user.id}
+            user={user}
+          />
         ))
     }
     </tbody>

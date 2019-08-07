@@ -20,15 +20,18 @@ AdminSearchPage.getInitialProps = async (ctx) => {
   if (!currentUser.authenticated) {
     return redirect(ctx, '/login');
   }
+  let count;
   try {
     setAuthorizationToken(currentUser.data.token);
     const { store, query } = ctx;
     const { dispatch } = store;
     const data = await dispatch(searchGoogle(query.q, query.page));
+    count = data.count;
   } catch (err) {
     err;
+    count = 0;
   }
-  return { page };
+  return { page, count };
 };
 
 export default connect(state => state)(AdminSearchPage);

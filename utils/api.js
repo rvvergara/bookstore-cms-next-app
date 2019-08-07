@@ -19,7 +19,6 @@ export const setAuthorizationToken = (token) => {
 export const googleBookSearch = async (keyword, queryPage) => {
   const page = queryPage || 1;
   const startIndex = (page - 1) * 40;
-  console.log('START INDEX', startIndex);
   const path = `https://www.googleapis.com/books/v1/volumes?q=${keyword}&maxResults=40&startIndex=${startIndex}&orderBy=relevance&key=AIzaSyBAnRcfwnf_nZkUwPl_6KQmBadxh7nmnMU`;
 
   setAuthorizationToken(false);

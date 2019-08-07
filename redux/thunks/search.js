@@ -19,12 +19,15 @@ export const searchLibrary = (keyword, page) => async (dispatch) => {
 export const searchGoogle = (keyword, page) => async dispatch => googleBookSearch(keyword, page)
   .then((res) => {
     const books = res.data.items.map(({ id, volumeInfo }) => ({ id, ...volumeInfo }));
-    return books;
+    const count = res.data.totalItems;
+    return { books, count };
   })
-  .then(rawBooks => getUnique(rawBooks, 'id'))
-  .then(uniqueBooks => sanitizeBooks(uniqueBooks))
-  .then((validBooks) => {
-    dispatch(listSearchResults(validBooks.slice(0, 10)));
+  .then(({ books, count }) => ({ books: getUnique(books, 'id'), count }))
+  .then(({ books, count }) => ({ books: sanitizeBooks(books), count }))
+  .then(({ books, count }) => {
+    const slicedBooks = books.slice(0, 10);
+    dispatch(listSearchResults(slicedBooks));
+    dispatch(setSearchTerm(keyword));
+    return { books: slicedBooks, count };
   })
-  .then(() => dispatch(setSearchTerm(keyword)))
   .catch(err => console.log('ERRORS HERE', err));

@@ -2,16 +2,30 @@ import { connect } from 'react-redux';
 import redirect from 'next-redirect';
 import initialize from '../../../utils/initialize';
 import Layout from '../../../components/Layout';
+import Pagination from '../../../components/Pagination';
 import SearchForm from '../../../components/SearchForm';
 import { searchGoogle } from '../../../redux/thunks/search';
 import { setAuthorizationToken } from '../../../utils/api';
 
-const AdminSearchPage = () => (
-  <Layout title="Google API Search">
-    <h3>Admin Search Page</h3>
-    <SearchForm />
-  </Layout>
-);
+const AdminSearchPage = ({
+  searchTerm,
+  count: maxCount,
+  page,
+}) => {
+  const pagesCount = Math.ceil(maxCount / 10);
+  const pageNumbers = [...Array(pagesCount).keys()].map(el => el + 1);
+  return (
+    <Layout title="Google API Search">
+      <h3>Admin Search Page</h3>
+      <SearchForm />
+      <Pagination
+        pages={pageNumbers}
+        queryPage={page}
+        path={`/admin/library/search?q=${searchTerm}`}
+      />
+    </Layout>
+  );
+};
 
 AdminSearchPage.getInitialProps = async (ctx) => {
   initialize(ctx);

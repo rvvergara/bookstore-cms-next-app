@@ -1,8 +1,11 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-const Pagination = ({ pages, queryPage, path }) => (
-  <footer className="pagination">
-    {
+const Pagination = ({ pages, queryPage, path }) => {
+  const router = useRouter();
+  return (
+    <footer className="pagination">
+      {
       queryPage > 1 && (
         <Link
           href={`${path}page=${queryPage - 1}`}
@@ -13,9 +16,9 @@ const Pagination = ({ pages, queryPage, path }) => (
         </Link>
       )
     }
-    <span className="page-numbers-container">
-      {
-        pages.map((page) => {
+      <span className="page-numbers-container">
+        {
+        !router.pathname.includes('admin/library/search') && pages.map((page) => {
           const activeClass = page === queryPage ? 'active-page' : '';
           return (
             <Link
@@ -26,14 +29,13 @@ const Pagination = ({ pages, queryPage, path }) => (
                 className={`page-number ${activeClass}`}
               >
                 {page}
-
               </a>
             </Link>
           );
         })
     }
-    </span>
-    {
+      </span>
+      {
     queryPage < pages.length && (
       <Link
         href={`${path}&page=${queryPage + 1}`}
@@ -44,7 +46,8 @@ const Pagination = ({ pages, queryPage, path }) => (
       </Link>
     )
   }
-  </footer>
-);
+    </footer>
+  );
+};
 
 export default Pagination;

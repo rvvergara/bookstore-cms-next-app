@@ -68,7 +68,6 @@ export const Login = ({
 };
 
 Login.getInitialProps = (ctx) => {
-  initialize(ctx);
   const { currentUser } = ctx.store.getState();
   ctx.store.dispatch(setErrors(null));
   if (currentUser.authenticated) {

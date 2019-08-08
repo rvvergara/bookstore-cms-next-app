@@ -15,6 +15,18 @@ const AdminSearchPage = ({
   <Layout title="Google API Search">
     <h3>Admin Search Page</h3>
     <SearchForm />
+    {
+      searchResults.map(book => (
+        <div key={book.id}>
+          <h4>{book.title}</h4>
+          <p>
+            In Library?
+            {' '}
+            {book.inLibrary ? 'true' : 'false'}
+          </p>
+        </div>
+      ))
+    }
     <Pagination
       queryPage={page}
       path={`/admin/library/search?q=${searchTerm}`}

@@ -1,4 +1,4 @@
-import { fetchData, googleBookSearch } from '../../utils/api';
+import { fetchData, googleBookSearch, setAuthorizationToken } from '../../utils/api';
 import { listSearchResults } from '../actions/search';
 import { setSearchTerm } from '../actions/searchTerm';
 import { processGoogleBooksResults } from '../../utils/arrayProcessing';
@@ -24,10 +24,11 @@ const checkLibrary = async (isbn) => {
   return inLibrary;
 };
 
-export const searchGoogle = (keyword, page) => async (dispatch) => {
+export const searchGoogle = (keyword, page, token) => async (dispatch) => {
   try {
     const searchResponse = await googleBookSearch(keyword, page);
     const { items } = searchResponse.data;
+    setAuthorizationToken(token);
     const shownItems = await processGoogleBooksResults(items, checkLibrary);
     dispatch(listSearchResults(shownItems));
     dispatch(setSearchTerm(keyword));

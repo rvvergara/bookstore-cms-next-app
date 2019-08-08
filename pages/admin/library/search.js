@@ -33,10 +33,11 @@ AdminSearchPage.getInitialProps = async (ctx) => {
     return redirect(ctx, '/login');
   }
   try {
-    setAuthorizationToken(currentUser.data.token);
+    const { token } = currentUser.data;
+    setAuthorizationToken(token);
     const { store, query } = ctx;
     const { dispatch } = store;
-    await dispatch(searchGoogle(query.q, query.page));
+    await dispatch(searchGoogle(query.q, query.page, token));
   } catch (err) {
     err;
   }

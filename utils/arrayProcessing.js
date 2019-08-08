@@ -12,5 +12,6 @@ export const sanitizeBooks = books => books.filter(
     && book.authors
     && book.subtitle
     && book.categories
+    && book.industryIdentifiers
     && book.pageCount,
 );

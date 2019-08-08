@@ -7,7 +7,9 @@ import Pagination from '../components/Pagination';
 import { setAuthorizationToken } from '../utils/api';
 import { fetchBooksFromLibrary } from '../redux/thunks/library';
 
-const LibraryPage = ({ books, page, count: maxCount }) => {
+const LibraryPage = ({
+ books, page, count: maxCount, displayedBooks 
+}) => {
   const currentCount = books.length + (page - 1) * 10;
   const pagesCount = Math.ceil(maxCount / 10);
   const pageNumbers = [...Array(pagesCount).keys()].map(el => el + 1);
@@ -33,6 +35,7 @@ const LibraryPage = ({ books, page, count: maxCount }) => {
         pages={pageNumbers}
         queryPage={page}
         path="/library?"
+        resultsCount={displayedBooks.length}
       />
     </Layout>
   );

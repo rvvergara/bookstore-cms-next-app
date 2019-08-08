@@ -8,6 +8,7 @@ import { searchGoogle } from '../../../redux/thunks/search';
 import { setAuthorizationToken } from '../../../utils/api';
 
 const AdminSearchPage = ({
+  searchResults,
   searchTerm,
   count: maxCount,
   page,
@@ -22,6 +23,7 @@ const AdminSearchPage = ({
         pages={pageNumbers}
         queryPage={page}
         path={`/admin/library/search?q=${searchTerm}`}
+        resultsCount={searchResults.length}
       />
     </Layout>
   );

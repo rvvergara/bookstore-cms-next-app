@@ -8,7 +8,9 @@ import { setAuthorizationToken } from '../../utils/api';
 import { searchLibrary } from '../../redux/thunks/search';
 import Pagination from '../../components/Pagination';
 
-const Search = ({ searchTerm, count: maxCount, page }) => {
+const Search = ({
+ searchTerm, count: maxCount, page, searchResults 
+}) => {
   const pagesCount = Math.ceil(maxCount / 10);
   const pageNumbers = [...Array(pagesCount).keys()].map(el => el + 1);
   return (
@@ -26,6 +28,7 @@ const Search = ({ searchTerm, count: maxCount, page }) => {
         pages={pageNumbers}
         queryPage={page}
         path={`/library/search?q=${searchTerm}`}
+        resultsCount={searchResults.length}
       />
     </Layout>
   );

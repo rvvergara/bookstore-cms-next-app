@@ -1,14 +1,16 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-const Pagination = ({ pages, queryPage, path }) => {
+const Pagination = ({
+  pages, queryPage, path, resultsCount,
+}) => {
   const router = useRouter();
   return (
     <footer className="pagination">
       {
       queryPage > 1 && (
         <Link
-          href={`${path}page=${queryPage - 1}`}
+          href={`${path}&page=${queryPage - 1}`}
         >
           <a className="previous-link page-sequence">
             Previous
@@ -36,7 +38,7 @@ const Pagination = ({ pages, queryPage, path }) => {
     }
       </span>
       {
-    queryPage < pages.length && (
+    resultsCount >= 10 && (
       <Link
         href={`${path}&page=${queryPage + 1}`}
       >

@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import redirect from 'next-redirect';
 import initialize from '../../../utils/initialize';
 import Layout from '../../../components/Layout';
+import Library from '../../../components/Library';
 import Pagination from '../../../components/Pagination';
 import SearchForm from '../../../components/SearchForm';
 import { searchGoogle } from '../../../redux/thunks/search';
@@ -15,18 +16,7 @@ const AdminSearchPage = ({
   <Layout title="Google API Search">
     <h3>Admin Search Page</h3>
     <SearchForm />
-    {
-      searchResults.map(book => (
-        <div key={book.id}>
-          <h4>{book.title}</h4>
-          <p>
-            In Library?
-            {' '}
-            {book.inLibrary ? 'true' : 'false'}
-          </p>
-        </div>
-      ))
-    }
+    <Library />
     <Pagination
       queryPage={page}
       path={`/admin/library/search?q=${searchTerm}`}

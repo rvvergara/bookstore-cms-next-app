@@ -3,7 +3,7 @@ import decode from 'jwt-decode';
 import { setCurrentUser, listUsers } from '../actions/user';
 import { setErrors } from '../actions/errors';
 import { fetchData, setAuthorizationToken } from '../../utils/api';
-import { setCookie, removeCookie } from '../../utils/cookie';
+import { setCookie, removeCookie, getCookie } from '../../utils/cookie';
 import { listSearchResults } from '../actions/search';
 import { setSearchTerm } from '../actions/searchTerm';
 import { setCollection } from '../actions/collection';
@@ -74,7 +74,8 @@ export const updateAccount = (userParams, usernameParam) => async (dispatch) => 
     const { user } = res.data;
     const { token } = user;
     if (token === null) {
-      const currentUser = { ...decode(localStorage.token), token: localStorage.token };
+      const tokenFromCookie = getCookie('token');
+      const currentUser = { ...decode(tokenFromCookie), token: tokenFromCookie };
       setUserInStore(currentUser, dispatch);
     } else {
       setUserInStore(user, dispatch);

@@ -1,7 +1,7 @@
 import { fetchData, googleBookSearch } from '../../utils/api';
 import { listSearchResults } from '../actions/search';
 import { setSearchTerm } from '../actions/searchTerm';
-import { getUnique, sanitizeBooks } from '../../utils/arrayProcessing';
+import { processGoogleBooksResults } from '../../utils/arrayProcessing';
 
 export const searchLibrary = (keyword, page) => async (dispatch) => {
   const path = page
@@ -16,18 +16,24 @@ export const searchLibrary = (keyword, page) => async (dispatch) => {
     .catch(err => console.log(err));
 };
 
-export const searchGoogle = (keyword, page) => async dispatch => googleBookSearch(keyword, page)
-  .then((res) => {
-    const books = res.data.items.map(({ id, volumeInfo }) => ({ id, ...volumeInfo }));
-    const count = res.data.totalItems;
-    return { books, count };
-  })
-  .then(({ books, count }) => ({ books: getUnique(books, 'id'), count }))
-  .then(({ books, count }) => ({ books: sanitizeBooks(books), count }))
-  .then(({ books, count }) => {
-    const slicedBooks = books.slice(0, 10);
-    dispatch(listSearchResults(slicedBooks));
+const checkLibrary = async (isbn) => {
+  const path = `/v1/search/isbn?isbn=${isbn}`;
+  const response = await fetchData('get', path);
+  const { data } = response;
+  const inLibrary = data.in_library;
+  return inLibrary;
+};
+
+export const searchGoogle = (keyword, page) => async (dispatch) => {
+  try {
+    const searchResponse = await googleBookSearch(keyword, page);
+    const { items } = searchResponse.data;
+    const shownItems = await processGoogleBooksResults(items, checkLibrary);
+    dispatch(listSearchResults(shownItems));
     dispatch(setSearchTerm(keyword));
-    return { books: slicedBooks, count };
-  })
-  .catch(err => console.log('ERRORS HERE', err));
+    return shownItems;
+  } catch (err) {
+    console.log('Error in searching google', err);
+    return err;
+  }
+};

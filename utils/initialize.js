@@ -1,4 +1,5 @@
 import Router from 'next/router';
+import decode from 'jwt-decode';
 import { getCookie } from './cookie';
 import { setCurrentUser } from '../redux/actions/user';
 
@@ -6,16 +7,17 @@ export default (ctx) => {
   if (ctx.isServer) {
     if (ctx.req.headers.cookie) {
       const { req, store } = ctx;
-      const { getState, dispatch } = store;
-      const { currentUser } = getState();
-      dispatch(
-        setCurrentUser(
-          {
-            ...currentUser,
-            data: { ...currentUser.data, token: getCookie('token', req) },
-          },
-        ),
-      );
+      const { dispatch } = store;
+      const token = getCookie('token', req);
+      const currentUserData = decode(token);
+      const currentUser = {
+        authenticated: true,
+        data: {
+          ...currentUserData,
+          token,
+        },
+      };
+      dispatch(setCurrentUser(currentUser));
     }
   } else {
     try {

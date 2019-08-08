@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { connect } from 'react-redux';
+import GoogleBookItem from './GoogleBookItem';
 import LibraryItem from './LibraryItem';
 import { listSearchResults } from '../redux/actions/search';
 import { setSearchTerm } from '../redux/actions/searchTerm';
@@ -25,12 +26,19 @@ const Library = ({
   }, []);
   const setToDisplay = router.pathname.includes('search') ? searchResults : displayedBooks;
   return (
-    setToDisplay.map(book => (
-      <LibraryItem
-        key={book.book_id}
-        book={book}
-      />
-    ))
+    setToDisplay.map((book) => {
+      if (router.pathname.includes('admin')) {
+        return (
+          <GoogleBookItem key={book.id} book={book} />
+        );
+      }
+      return (
+        <LibraryItem
+          key={book.book_id}
+          book={book}
+        />
+      );
+    })
   );
 };
 

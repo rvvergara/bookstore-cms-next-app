@@ -1,0 +1,31 @@
+.result-item {
+  color: $black;
+  display: flex;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: $card-padding * 1.1;
+  border: 1px solid $translucent-black;
+  margin-bottom: $intercard;
+  box-shadow: $translucent-black 0.05rem 0.05rem 1rem;
+}
+
+.result-item__image-wrapper {
+  margin-right: $medium;
+  border-right: 1px solid $translucent-black;
+  padding-right: $card-padding;
+}
+
+.included {
+  background: $light-blue;
+  color: $white;
+  display: inline-block;
+  margin-left: $small;
+  padding: $small * 0.3;
+}
+
+.result-item__authors {
+  margin: 0.5rem 0;
+}
+
+.result-item__description {
+  font-size: $small * 1.1;
+}

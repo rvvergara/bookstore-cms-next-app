@@ -5,8 +5,8 @@ const LibrarySearchResultItem = ({ book }) => {
     title, thumbnail, book_id, authors, description, subtitle, included,
   } = book;
   return (
-    <div className="book-result-item__details">
-      <div className="book-result-item__image-wrapper">
+    <div className="result-item">
+      <div className="result-item__image-wrapper">
         <img src={thumbnail} alt={title} />
       </div>
       <div className="book-result-item__infos">
@@ -15,24 +15,33 @@ const LibrarySearchResultItem = ({ book }) => {
           as={`/library/${book_id}`}
         >
           <a>
-            <h3>
+            <h3 className="title">
               {title}
               :
               {' '}
               {subtitle}
               {
-                included && <button>In collection</button>
+                included && (
+                  <button
+                    type="button"
+                    className="included"
+                  >
+                  In collection
+                  </button>
+                )
             }
             </h3>
           </a>
         </Link>
-        <h4>
-            By:
-          {' '}
-          {authors}
-          {' '}
-        </h4>
-        <p>
+        <p className="result-item__authors">
+          <small>
+              By:
+            {' '}
+            {authors}
+            {' '}
+          </small>
+        </p>
+        <p className="result-item__description">
           {description.substr(0, 500)}
           {' '}
         </p>

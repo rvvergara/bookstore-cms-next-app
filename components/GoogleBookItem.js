@@ -5,8 +5,8 @@ const LibrarySearchResultItem = ({ book }) => {
     title, imageLinks, authors, description, subtitle, inLibrary, infoLink,
   } = book;
   return (
-    <div className="book-result-item__details">
-      <div className="book-result-item__image-wrapper">
+    <div className="result-item">
+      <div className="result-item__image-wrapper">
         <img src={imageLinks.thumbnail} alt={title} />
       </div>
       <div className="book-result-item__infos">
@@ -14,7 +14,7 @@ const LibrarySearchResultItem = ({ book }) => {
           href={infoLink}
         >
           <a target="blank">
-            <h3>
+            <h3 className="title">
               {title}
               :
               {' '}
@@ -23,6 +23,7 @@ const LibrarySearchResultItem = ({ book }) => {
                 inLibrary && (
                   <button
                     type="button"
+                    className="included"
                   >
                     In Library
                   </button>
@@ -31,13 +32,15 @@ const LibrarySearchResultItem = ({ book }) => {
             </h3>
           </a>
         </Link>
-        <h4>
-            By:
-          {' '}
-          {authors.join(', ')}
-          {' '}
-        </h4>
-        <p>
+        <p className="result-item__authors">
+          <small>
+              By:
+            {' '}
+            {authors.join(', ')}
+            {' '}
+          </small>
+        </p>
+        <p className="result-item__description">
           {description.substr(0, 500)}
           {' '}
         </p>

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import LibraryItemActions from './LibraryItemActions';
 
 const LibrarySearchResultItem = ({ book }) => {
   const {
@@ -45,6 +46,7 @@ const LibrarySearchResultItem = ({ book }) => {
           {description.substr(0, 500)}
           {' '}
         </p>
+        <LibraryItemActions book={book} />
       </div>
     </div>
   );

@@ -1,0 +1,11 @@
+.library-item__actions {
+  border: 1px solid $black;
+  width: 70%;
+}
+
+.library-item__actions__link {
+  border: 1px solid $black;
+  display: inline-block;
+  font-size: $small;
+  padding: $small * 0.5;
+}

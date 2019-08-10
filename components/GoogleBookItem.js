@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import GoogleBookItemActions from './GoogleBookItemActions';
 
 const LibrarySearchResultItem = ({ book }) => {
   const {
@@ -44,6 +45,7 @@ const LibrarySearchResultItem = ({ book }) => {
           {description.substr(0, 500)}
           {' '}
         </p>
+        <GoogleBookItemActions book={book} />
       </div>
     </div>
   );

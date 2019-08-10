@@ -28,7 +28,9 @@ export const processGoogleBooksResults = async (items, checkingFn) => {
 
   for (const book of shownItems) {
     const isbn = book.industryIdentifiers[0].identifier;
-    book.inLibrary = await checkingFn(isbn);
+    const mappedToLibrary = await checkingFn(isbn);
+    book.inLibrary = mappedToLibrary.inLibrary;
+    book.book_id = mappedToLibrary.book_id;
   }
 
   return shownItems;

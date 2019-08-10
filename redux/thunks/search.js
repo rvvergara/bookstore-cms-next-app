@@ -21,7 +21,8 @@ const checkLibrary = async (isbn) => {
   const response = await fetchData('get', path);
   const { data } = response;
   const inLibrary = data.in_library;
-  return inLibrary;
+  const {book_id} = data;
+  return { inLibrary, book_id };
 };
 
 export const searchGoogle = (keyword, page, token) => async (dispatch) => {

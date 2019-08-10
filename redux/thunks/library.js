@@ -20,3 +20,14 @@ export const fetchBooksFromLibrary = page => async (dispatch) => {
       return { books: res.data.books, count: res.data.count };
     });
 };
+
+export const fetchUpdateBook = (book_id, data) => async (dispatch) => {
+  const path = `/v1/books/${book_id}`;
+  try {
+    const res = await fetchData('put', path, data);
+    const { book } = res.data;
+    dispatch(setBook(book));
+  } catch (err) {
+    console.log(err);
+  }
+};

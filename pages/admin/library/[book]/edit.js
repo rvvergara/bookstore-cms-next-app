@@ -4,9 +4,13 @@ import initialize from '../../../../utils/initialize';
 import { setAuthorizationToken } from '../../../../utils/api';
 import { fetchBook } from '../../../../redux/thunks/library';
 import Layout from '../../../../components/Layout';
+import BookForm from '../../../../components/BookForm';
 
 const EditBookPage = ({ book }) => (
-  <Layout title={`Edit - ${book.title}`}><h3>Edit Book Page</h3></Layout>
+  <Layout title={`Edit - ${book.title}`}>
+    <h3>Edit Book Page</h3>
+    <BookForm />
+  </Layout>
 );
 
 EditBookPage.getInitialProps = async (ctx) => {

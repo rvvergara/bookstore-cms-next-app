@@ -6,10 +6,15 @@ import UserForm from '../../../components/UserForm';
 import { setAuthorizationToken } from '../../../utils/api';
 
 const User = ({ currentUser }) => {
-  const { first_name } = currentUser.data;
-  const { last_name } = currentUser.data;
-  const fullName = `${first_name} ${last_name}`;
-  setAuthorizationToken(currentUser.data.token);
+  let first_name;
+  let last_name;
+  let fullName;
+  if (currentUser.authenticated) {
+    first_name = currentUser.data.first_name;
+    last_name = currentUser.data.last_name;
+    fullName = `${first_name} ${last_name}`;
+    setAuthorizationToken(currentUser.data.token);
+  }
   return (
     <Layout title={`Edit Account - ${fullName}`}>
       <UserForm />

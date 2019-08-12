@@ -6,12 +6,15 @@ import { fetchBook } from '../../../../redux/thunks/library';
 import Layout from '../../../../components/Layout';
 import BookForm from '../../../../components/BookForm';
 
-const EditBookPage = ({ book }) => (
-  <Layout title={`Edit - ${book.title}`}>
-    <h3>Edit Book Page</h3>
-    <BookForm />
-  </Layout>
-);
+const EditBookPage = ({ book, currentUser }) => {
+  if (currentUser.authenticated) { setAuthorizationToken(currentUser.data.token); }
+  return (
+    <Layout title={`Edit - ${book.title}`}>
+      <h3>Edit Book Page</h3>
+      <BookForm />
+    </Layout>
+  );
+};
 
 EditBookPage.getInitialProps = async (ctx) => {
   initialize(ctx);

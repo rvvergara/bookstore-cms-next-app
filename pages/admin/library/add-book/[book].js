@@ -1,17 +1,18 @@
 import { connect } from 'react-redux';
 import redirect from 'next-redirect';
-import initialize from '../../../utils/initialize';
-import { setAuthorizationToken } from '../../../utils/api';
-import Layout from '../../../components/Layout';
+import initialize from '../../../../utils/initialize';
+import { setAuthorizationToken } from '../../../../utils/api';
+import { setBook } from '../../../../redux/actions/book';
+import Layout from '../../../../components/Layout';
 
 const NewBookPage = () => (
   <Layout title="Add To Library"><h3>New Book Page</h3></Layout>
 );
 
-NewBookPage.getInitialProps = (ctx) => {
+NewBookPage.getInitialProps = async (ctx) => {
   initialize(ctx);
-  const { store } = ctx;
-  const { getState } = store;
+  const { store, query } = ctx;
+  const { getState, dispatch } = store;
   const { currentUser } = getState();
   if (!currentUser.authenticated) {
     return redirect(ctx, '/login');

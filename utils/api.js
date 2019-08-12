@@ -26,3 +26,14 @@ export const googleBookSearch = async (keyword, queryPage) => {
 
   return rawItems;
 };
+
+export const googleBookSearchSingleBook = async (id) => {
+  const path = `https://www.googleapis.com/books/v1/volumes/${id}?key=AIzaSyBAnRcfwnf_nZkUwPl_6KQmBadxh7nmnMU`;
+
+  setAuthorizationToken(false);
+
+  const rawItem = await axios.get(path);
+
+  return rawItem;
+};
+

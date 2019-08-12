@@ -7,10 +7,9 @@ const GoogleBookItemActions = ({
   book,
 }) => {
   const {
-    title, imageLinks, inLibrary, authors, description, subtitle, infoLink, book_id, industryIdentifiers,
+    title, imageLinks, inLibrary, authors, description, subtitle, infoLink, book_id, id,
   } = book;
 
-  const { identifier: isbn } = industryIdentifiers[0];
   return (
     <div className="library-item__actions">
       <Link
@@ -25,7 +24,7 @@ const GoogleBookItemActions = ({
       </Link>
       <Link
         href={inLibrary ? '/admin/library/[book]/edit' : '/admin/library/add-book/[book]'}
-        as={inLibrary ? `/admin/library/${book_id}/edit` : `/admin/library/add-book/${isbn}`}
+        as={inLibrary ? `/admin/library/${book_id}/edit` : `/admin/library/add-book/${id}`}
       >
         <a className="library-item__actions__link">
           {inLibrary ? 'Manage' : 'Add To Library'}

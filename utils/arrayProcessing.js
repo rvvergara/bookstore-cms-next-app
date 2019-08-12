@@ -35,3 +35,18 @@ export const processGoogleBooksResults = async (items, checkingFn) => {
 
   return shownItems;
 };
+
+export const processGoogleBook = async (book, checkingFn) => {
+  const isbn = book.industryIdentifiers[0].identifier;
+  const authors = book.authors.join(', ');
+  const category = book.categories[0];
+  const thumbnail = book.imageLinks.smallThumbnail;
+  const page_count = book.pageCount;
+  const mappedToLibrary = await checkingFn(isbn);
+  book.inLibrary = mappedToLibrary.inLibrary;
+  book.book_id = mappedToLibrary.book_id;
+
+  return {
+    ...book, isbn, authors, category, thumbnail, page_count, included: false, item_id: null,
+  };
+};

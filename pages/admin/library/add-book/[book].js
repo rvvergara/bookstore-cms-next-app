@@ -2,11 +2,15 @@ import { connect } from 'react-redux';
 import redirect from 'next-redirect';
 import initialize from '../../../../utils/initialize';
 import { setAuthorizationToken } from '../../../../utils/api';
-import { setBook } from '../../../../redux/actions/book';
+import { fetchGoogleBook } from '../../../../redux/thunks/search';
 import Layout from '../../../../components/Layout';
+import BookForm from '../../../../components/BookForm';
 
 const NewBookPage = () => (
-  <Layout title="Add To Library"><h3>New Book Page</h3></Layout>
+  <Layout title="Add To Library">
+<h3>New Book Page</h3>
+    <BookForm />
+  </Layout>
 );
 
 NewBookPage.getInitialProps = async (ctx) => {
@@ -23,6 +27,8 @@ NewBookPage.getInitialProps = async (ctx) => {
   try {
     const { token } = currentUser.data;
     setAuthorizationToken(token);
+    const book = await dispatch(fetchGoogleBook(query.book, token));
+    console.log('BOOK HERE', book);
   } catch (err) {
     err;
   }

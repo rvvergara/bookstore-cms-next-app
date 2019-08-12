@@ -11,6 +11,7 @@ const BookForm = ({
   const [title, setTitle] = useState(book ? book.title : '');
   const [subTitle, setSubTitle] = useState(book ? book.subtitle : '');
   const [authors, setAuthors] = useState(book ? book.authors : '');
+  const [category, setCategory] = useState(book ? book.category : '');
   const [description, setDescription] = useState(book ? book.description : '');
   const [thumbnail, setThumbnail] = useState(book ? book.thumbnail : '');
   const [pageCount, setPageCount] = useState(book ? book.page_count : '');
@@ -34,6 +35,7 @@ const BookForm = ({
 
   useEffect(() => () => setBook(null), []);
   const fieldErrorsAvailable = errors && errors.errors;
+
   return (
     <form>
       {
@@ -66,6 +68,14 @@ const BookForm = ({
         type="text"
         inputId="subtitle"
         error={fieldErrorsAvailable ? errors.errors.subtitle : null}
+      />
+      <InputWrapper
+        setInput={setCategory}
+        inputValue={category}
+        labelValue="Category"
+        type="text"
+        inputId="category"
+        error={fieldErrorsAvailable ? errors.errors.category : null}
       />
       <InputWrapper
         setInput={setAuthors}

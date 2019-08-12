@@ -1,7 +1,10 @@
-import { fetchData, googleBookSearch, setAuthorizationToken } from '../../utils/api';
+import {
+  fetchData, googleBookSearch, setAuthorizationToken, googleBookSearchSingleBook,
+} from '../../utils/api';
 import { listSearchResults } from '../actions/search';
 import { setSearchTerm } from '../actions/searchTerm';
-import { processGoogleBooksResults } from '../../utils/arrayProcessing';
+import { setBook } from '../actions/book';
+import { processGoogleBooksResults, processGoogleBook } from '../../utils/arrayProcessing';
 
 export const searchLibrary = (keyword, page) => async (dispatch) => {
   const path = page
@@ -21,7 +24,7 @@ const checkLibrary = async (isbn) => {
   const response = await fetchData('get', path);
   const { data } = response;
   const inLibrary = data.in_library;
-  const {book_id} = data;
+  const { book_id } = data;
   return { inLibrary, book_id };
 };
 
@@ -37,5 +40,19 @@ export const searchGoogle = (keyword, page, token) => async (dispatch) => {
   } catch (err) {
     console.log('Error in searching google', err);
     return err;
+  }
+};
+
+export const fetchGoogleBook = (id, token) => async (dispatch) => {
+  try {
+    setAuthorizationToken(false);
+    const response = await googleBookSearchSingleBook(id);
+    const book = response.data.volumeInfo;
+    setAuthorizationToken(token);
+    const processedBook = await processGoogleBook(book, checkLibrary);
+    dispatch(setBook(processedBook));
+    return book;
+  } catch (err) {
+    console.log('Error from Google', err);
   }
 };

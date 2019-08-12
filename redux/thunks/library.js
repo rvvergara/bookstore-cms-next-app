@@ -21,6 +21,18 @@ export const fetchBooksFromLibrary = page => async (dispatch) => {
     });
 };
 
+export const fetchAddBook = (book_id, bookData) => async (dispatch) => {
+  const path = '/v1/books';
+  try {
+    const res = await fetchData('post', path, bookData);
+    const { book } = res.data;
+    dispatch(setBook(book));
+    return book;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const fetchUpdateBook = (book_id, data) => async (dispatch) => {
   const path = `/v1/books/${book_id}`;
   try {

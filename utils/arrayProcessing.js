@@ -13,6 +13,7 @@ export const sanitizeBooks = books => books.filter(
     && book.subtitle
     && book.categories
     && book.industryIdentifiers
+    && book.industryIdentifiers[0].type === 'ISBN_13'
     && book.pageCount,
 );
 
@@ -27,6 +28,7 @@ export const processGoogleBooksResults = async (items, checkingFn) => {
   const shownItems = validItems.slice(0, 10);
 
   for (const book of shownItems) {
+    console.log(book.title, book.industryIdentifiers);
     const isbn = book.industryIdentifiers[0].identifier;
     const mappedToLibrary = await checkingFn(isbn);
     book.inLibrary = mappedToLibrary.inLibrary;
@@ -37,7 +39,7 @@ export const processGoogleBooksResults = async (items, checkingFn) => {
 };
 
 export const processGoogleBook = async (book, checkingFn) => {
-  const isbn = book.industryIdentifiers[0].identifier;
+  const isbn = book.industryIdentifiers[0].type === 'ISBN_13' ? book.industryIdentifiers[0].identifier : book.industryIdentifiers[1].identifier;
   const authors = book.authors.join(', ');
   const category = book.categories[0];
   const thumbnail = book.imageLinks.smallThumbnail;

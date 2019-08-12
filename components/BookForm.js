@@ -3,10 +3,10 @@ import { useRouter } from 'next/router';
 import { connect } from 'react-redux';
 import { setBook } from '../redux/actions/book';
 import InputWrapper from './InputWrapper';
-import { fetchUpdateBook } from '../redux/thunks/library';
+import { fetchUpdateBook, fetchAddBook } from '../redux/thunks/library';
 
 const BookForm = ({
-  book, errors, setBook, fetchUpdateBook,
+  book, errors, setBook, fetchUpdateBook, fetchAddBook,
 }) => {
   const [title, setTitle] = useState(book ? book.title : '');
   const [subTitle, setSubTitle] = useState(book ? book.subtitle : '');
@@ -16,21 +16,23 @@ const BookForm = ({
   const [thumbnail, setThumbnail] = useState(book ? book.thumbnail : '');
   const [pageCount, setPageCount] = useState(book ? book.page_count : '');
   const router = useRouter();
-
+  const saveBook = router.pathname.includes('edit') ? fetchUpdateBook : fetchAddBook;
   const handleSubmitBook = async (e) => {
     e.preventDefault();
-    await fetchUpdateBook(book.book_id, {
+    const savedBook = await saveBook(book.book_id, {
       book: {
         title,
-        subTitle,
+        subtitle: subTitle,
         authors,
+        category,
         description,
+        published_date: book.publishedDate,
         thumbnail,
         page_count: pageCount,
         isbn: book.isbn,
       },
     });
-    router.push('/library/[book]', `/library/${book.book_id}`);
+    router.push('/library/[book]', `/library/${savedBook.book_id}`);
   };
 
   useEffect(() => () => setBook(null), []);
@@ -126,4 +128,4 @@ const mapStateToProps = state => ({
   errors: state.errors,
 });
 
-export default connect(mapStateToProps, { setBook, fetchUpdateBook })(BookForm);
+export default connect(mapStateToProps, { setBook, fetchUpdateBook, fetchAddBook })(BookForm);

@@ -6,12 +6,17 @@ import { fetchGoogleBook } from '../../../../redux/thunks/search';
 import Layout from '../../../../components/Layout';
 import BookForm from '../../../../components/BookForm';
 
-const NewBookPage = () => (
-  <Layout title="Add To Library">
-<h3>New Book Page</h3>
-    <BookForm />
-  </Layout>
-);
+const NewBookPage = ({ currentUser }) => {
+  if (currentUser.authenticated) {
+    setAuthorizationToken(currentUser.data.token);
+  }
+  return (
+    <Layout title="Add To Library">
+      <h3>New Book Page</h3>
+      <BookForm />
+    </Layout>
+  );
+};
 
 NewBookPage.getInitialProps = async (ctx) => {
   initialize(ctx);

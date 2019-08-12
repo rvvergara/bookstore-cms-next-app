@@ -27,6 +27,7 @@ export const fetchUpdateBook = (book_id, data) => async (dispatch) => {
     const res = await fetchData('put', path, data);
     const { book } = res.data;
     dispatch(setBook(book));
+    return book;
   } catch (err) {
     console.log(err);
   }

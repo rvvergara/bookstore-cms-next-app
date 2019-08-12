@@ -1,14 +1,17 @@
+import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { connect } from 'react-redux';
 import { fetchAddItem, fetchRemoveItem } from '../redux/thunks/collection';
 import { setAuthorizationToken } from '../utils/api';
 import { fetchBook } from '../redux/thunks/library';
+import { setBook } from '../redux/actions/book';
 
 const Book = ({
   book,
   fetchBook,
   fetchAddItem,
   fetchRemoveItem,
+  setBook,
   username,
   token,
 }) => {
@@ -23,6 +26,9 @@ const Book = ({
         .then(() => fetchBook(book.book_id));
     }
   };
+  useEffect(() => {
+    setBook(book);
+  }, []);
   return (
     <div className="book-container">
       <h3>
@@ -71,4 +77,6 @@ const mapStateToProps = state => ({
   token: state.currentUser.data.token,
 });
 
-export default connect(mapStateToProps, { fetchAddItem, fetchRemoveItem, fetchBook })(Book);
+export default connect(mapStateToProps, {
+  fetchAddItem, fetchRemoveItem, fetchBook, setBook,
+})(Book);

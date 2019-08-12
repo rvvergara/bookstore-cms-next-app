@@ -1,17 +1,38 @@
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { connect } from 'react-redux';
 import { setBook } from '../redux/actions/book';
 import InputWrapper from './InputWrapper';
+import { fetchUpdateBook } from '../redux/thunks/library';
 
-const BookForm = ({ book, errors, setBook }) => {
+const BookForm = ({
+  book, errors, setBook, fetchUpdateBook,
+}) => {
   const [title, setTitle] = useState(book ? book.title : '');
   const [subTitle, setSubTitle] = useState(book ? book.subtitle : '');
   const [authors, setAuthors] = useState(book ? book.authors : '');
   const [description, setDescription] = useState(book ? book.description : '');
   const [thumbnail, setThumbnail] = useState(book ? book.thumbnail : '');
   const [pageCount, setPageCount] = useState(book ? book.page_count : '');
+  const router = useRouter();
 
-  useEffect(() => () => setBook(null));
+  const handleSubmitBook = async (e) => {
+    e.preventDefault();
+    await fetchUpdateBook(book.book_id, {
+      book: {
+        title,
+        subTitle,
+        authors,
+        description,
+        thumbnail,
+        page_count: pageCount,
+        isbn: book.isbn,
+      },
+    });
+    router.push('/library/[book]', `/library/${book.book_id}`);
+  };
+
+  useEffect(() => () => setBook(null), []);
   const fieldErrorsAvailable = errors && errors.errors;
   return (
     <form>
@@ -82,6 +103,7 @@ const BookForm = ({ book, errors, setBook }) => {
       <button
         type="submit"
         className="add-book-btn"
+        onClick={handleSubmitBook}
       >
         Submit Book
       </button>
@@ -94,4 +116,4 @@ const mapStateToProps = state => ({
   errors: state.errors,
 });
 
-export default connect(mapStateToProps, { setBook })(BookForm);
+export default connect(mapStateToProps, { setBook, fetchUpdateBook })(BookForm);

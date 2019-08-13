@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { connect } from 'react-redux';
+import Markdown from 'markdown-to-jsx';
 import { fetchAddItem, fetchRemoveItem } from '../redux/thunks/collection';
 import { setAuthorizationToken } from '../utils/api';
 import { fetchBook } from '../redux/thunks/library';
@@ -43,9 +44,9 @@ const Book = ({
       </h4>
       <div>
         <img src={book.thumbnail} alt={book.title} />
-        <p>
+        <Markdown>
           { book.description }
-        </p>
+        </Markdown>
         <div>
           <button
             type="button"

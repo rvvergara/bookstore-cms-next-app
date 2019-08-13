@@ -1,9 +1,19 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { connect } from 'react-redux';
+import ReactMde from 'react-mde';
+import * as Showdown from 'showdown';
+import 'react-mde/lib/styles/css/react-mde-all.css';
 import { setBook } from '../redux/actions/book';
 import InputWrapper from './InputWrapper';
 import { fetchUpdateBook, fetchAddBook } from '../redux/thunks/library';
+
+const converter = new Showdown.Converter({
+  tables: true,
+  simplifiedAutoLink: true,
+  strikethrough: true,
+  tasklists: true,
+});
 
 const BookForm = ({
   book, errors, setBook, fetchUpdateBook, fetchAddBook,
@@ -15,6 +25,7 @@ const BookForm = ({
   const [description, setDescription] = useState(book ? book.description : '');
   const [thumbnail, setThumbnail] = useState(book ? book.thumbnail : '');
   const [pageCount, setPageCount] = useState(book ? book.page_count : '');
+  const [selectedTab, setSelectedTab] = useState('write');
   const router = useRouter();
   const saveBook = router.pathname.includes('edit') ? fetchUpdateBook : fetchAddBook;
   const handleSubmitBook = async (e) => {
@@ -87,14 +98,16 @@ const BookForm = ({
         inputId="authors"
         error={fieldErrorsAvailable ? errors.errors.authors : null}
       />
-      <InputWrapper
-        setInput={setDescription}
-        inputValue={description}
-        labelValue="Description"
-        type="textarea"
-        inputId="description"
-        error={fieldErrorsAvailable ? errors.errors.description : null}
-      />
+      <div className="container">
+        <ReactMde
+          value={description}
+          onChange={setDescription}
+          selectedTab={selectedTab}
+          onTabChange={setSelectedTab}
+          generateMarkdownPreview={markdown => Promise.resolve(converter.makeHtml(markdown))
+        }
+        />
+      </div>
       <InputWrapper
         setInput={setThumbnail}
         inputValue={thumbnail}

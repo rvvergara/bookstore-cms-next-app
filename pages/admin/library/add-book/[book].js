@@ -33,7 +33,6 @@ NewBookPage.getInitialProps = async (ctx) => {
     const { token } = currentUser.data;
     setAuthorizationToken(token);
     const book = await dispatch(fetchGoogleBook(query.book, token));
-    console.log('BOOK HERE', book);
   } catch (err) {
     err;
   }

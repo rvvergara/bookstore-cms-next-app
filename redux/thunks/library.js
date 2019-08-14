@@ -4,21 +4,23 @@ import { setDisplayedBooks } from '../actions/library';
 
 export const fetchBook = id => async (dispatch) => {
   const path = `/v1/books/${id}`;
-  return fetchData('get', path)
-    .then((res) => {
-      dispatch(setBook(res.data.book));
-      return res.data;
-    });
+  const res = await fetchData('get', path);
+  const { book } = res.data;
+  dispatch(setBook(book));
+  return book;
 };
 
 export const fetchBooksFromLibrary = page => async (dispatch) => {
   const path = page ? `/v1/books?page=${page}` : '/v1/books';
-
-  return fetchData('get', path)
-    .then((res) => {
-      dispatch(setDisplayedBooks(res.data.books));
-      return { books: res.data.books, count: res.data.count };
-    });
+  try {
+    const res = await fetchData('get', path);
+    const { books } = res.data;
+    const { count } = res.data;
+    dispatch(setDisplayedBooks(books));
+    return { books, count };
+  } catch (err) {
+    console.log('ERROR FROM RAILS', err);
+  }
 };
 
 export const fetchAddBook = (book_id, bookData) => async (dispatch) => {
@@ -29,7 +31,7 @@ export const fetchAddBook = (book_id, bookData) => async (dispatch) => {
     dispatch(setBook(book));
     return book;
   } catch (err) {
-    console.log(err);
+    console.log('ERROR FROM RAILS', err);
   }
 };
 
@@ -41,6 +43,6 @@ export const fetchUpdateBook = (book_id, data) => async (dispatch) => {
     dispatch(setBook(book));
     return book;
   } catch (err) {
-    console.log(err);
+    console.log('ERROR FROM RAILS', err);
   }
 };

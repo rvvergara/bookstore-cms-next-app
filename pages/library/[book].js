@@ -6,11 +6,21 @@ import Book from '../../components/Book';
 import { setAuthorizationToken } from '../../utils/api';
 import { fetchBook } from '../../redux/thunks/library';
 
-const BookPage = ({ book }) => (
-  <Layout title={`${book.title}`}>
-    <Book />
-  </Layout>
-);
+const BookPage = ({ book, errors }) => {
+  const title = book ? book.title : 'Error';
+  return (
+    <Layout title={title}>
+      {
+        errors && (
+          <div className="errors">
+            { errors }
+          </div>
+        )
+      }
+      {book && <Book />}
+    </Layout>
+  );
+};
 
 BookPage.getInitialProps = async (ctx) => {
   initialize(ctx);

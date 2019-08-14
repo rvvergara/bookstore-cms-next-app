@@ -1,13 +1,18 @@
 import { fetchData } from '../../utils/api';
 import { setBook } from '../actions/book';
 import { setDisplayedBooks } from '../actions/library';
+import { setErrors } from '../actions/errors';
 
 export const fetchBook = id => async (dispatch) => {
   const path = `/v1/books/${id}`;
-  const res = await fetchData('get', path);
-  const { book } = res.data;
-  dispatch(setBook(book));
-  return book;
+  try {
+    const res = await fetchData('get', path);
+    const { book } = res.data;
+    dispatch(setBook(book));
+    return book;
+  } catch (err) {
+    dispatch(setErrors(err.message));
+  }
 };
 
 export const fetchBooksFromLibrary = page => async (dispatch) => {

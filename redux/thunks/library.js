@@ -24,7 +24,7 @@ export const fetchBooksFromLibrary = page => async (dispatch) => {
     dispatch(setDisplayedBooks(books));
     return { books, count };
   } catch (err) {
-    console.log('ERROR FROM RAILS', err);
+    dispatch(setErrors(err));
   }
 };
 

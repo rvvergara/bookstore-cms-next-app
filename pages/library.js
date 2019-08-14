@@ -8,13 +8,15 @@ import { setAuthorizationToken } from '../utils/api';
 import { fetchBooksFromLibrary } from '../redux/thunks/library';
 
 const LibraryPage = ({
- books, page, count: maxCount, displayedBooks 
+  books, page, count: maxCount, displayedBooks, errors,
 }) => {
   const currentCount = books.length + (page - 1) * 10;
   const pagesCount = Math.ceil(maxCount / 10);
   const pageNumbers = [...Array(pagesCount).keys()].map(el => el + 1);
+  const title = errors ? 'Error' : 'Books';
   return (
-    <Layout title="Books">
+    <Layout title={title}>
+      {!errors && (
       <h3>
         Showing
         {' '}
@@ -30,6 +32,12 @@ const LibraryPage = ({
         {' '}
         books
       </h3>
+      )}
+      {
+        errors && (
+          <h3>Network Error</h3>
+        )
+      }
       <Library />
       <Pagination
         pages={pageNumbers}

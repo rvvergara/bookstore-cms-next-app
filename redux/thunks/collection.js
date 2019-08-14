@@ -9,37 +9,44 @@ import { setErrors } from '../actions/errors';
 
 export const fetchCollection = username => async (dispatch) => {
   const path = `/v1/users/${username}/collection`;
-
-  const data = await fetchData('get', path)
-    .then(res => res.data.user.collection)
-    .catch(err => err);
-  dispatch(setCollection(data));
-  return data;
+  try {
+    const res = await fetchData('get', path);
+    const { collection } = res.data.user;
+    dispatch(setCollection(collection));
+    return collection;
+  } catch (err) {
+    dispatch(setErrors(err.message));
+  }
 };
 
-export const fetchAddItem = (username, item) => (dispatch) => {
+export const fetchAddItem = (username, item) => async (dispatch) => {
   const path = `/v1/users/${username}/collection`;
-  return fetchData('post', path, item)
-    .then(() => dispatch(addItem(item)))
-    .catch(err => console.log(err.response.data));
+  try {
+    const res = await fetchData('post', path, item);
+    const newItem = res.data.collection_item;
+    dispatch(addItem(newItem));
+  } catch (err) {
+    dispatch(setErrors(err.message));
+  }
 };
 
-export const fetchUpdatePage = (username, item_id, newPage) => (dispatch) => {
+export const fetchUpdatePage = (username, item_id, newPage) => async (dispatch) => {
   const path = `/v1/users/${username}/collection/${item_id}`;
-
-  return fetchData('put', path, { current_page: newPage })
-    .then(() => dispatch(updatePage(item_id, newPage)))
-    .catch((err) => {
-      dispatch(setErrors(err.response.data));
-      return Promise.reject();
-    });
+  try {
+    await fetchData('put', path, { current_page: newPage });
+    dispatch(updatePage(item_id, newPage));
+  } catch (err) {
+    dispatch(setErrors(err.message));
+    return Promise.reject(err.message);
+  }
 };
 
-export const fetchRemoveItem = (username, id) => (dispatch) => {
+export const fetchRemoveItem = (username, id) => async (dispatch) => {
   const path = `/v1/users/${username}/collection/${id}`;
-
-  return fetchData('delete', path)
-    .then(() => {
-      dispatch(removeItem(id));
-    });
+  try {
+    await fetchData('delete', path);
+    dispatch(removeItem(id));
+  } catch (err) {
+    dispatch(setErrors(err.message));
+  }
 };

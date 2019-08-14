@@ -88,7 +88,7 @@ export const updateAccount = (userParams, usernameParam) => async (dispatch) => 
       }
       dispatch(setErrors(err.response.data));
     } else {
-      dispatch(setErrors(err));
+      dispatch(setErrors(err.message));
     }
 
     return Promise.reject();
@@ -109,10 +109,13 @@ export const fetchUserData = username => async () => {
 export const fetchUsers = page => async (dispatch) => {
   const path = page ? `/v1/users?page=${page}` : '/v1/users';
   try {
-    const data = await fetchData('get', path).then(res => res.data);
-    dispatch(listUsers(data.users));
-    return { users: data.users, count: data.count };
+    const res = await fetchData('get', path);
+    const { users } = res.data;
+    const { count } = res.data;
+    dispatch(listUsers(users));
+    return { users, count };
   } catch (err) {
+    dispatch(setErrors(err.message));
     return Promise.reject(err.response.data.message);
   }
 };

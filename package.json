@@ -10,18 +10,20 @@
     "build": "next build",
     "start": "next start -p $PORT",
     "heroku-postbuild": "yarn build ",
-    "export": "yarn build && next export"
+    "export": "yarn build && next export",
+    "snyk-protect": "snyk protect",
+    "prepare": "yarn run snyk-protect"
   },
   "dependencies": {
     "@zeit/next-sass": "^1.0.1",
     "axios": "^0.19.0",
     "js-cookie": "^2.2.0",
     "jwt-decode": "^2.2.0",
-    "markdown-to-jsx": "^6.10.3",
-    "next": "^9.3.2",
+    "markdown-to-jsx": "^6.11.4",
+    "next": "^9.3.4",
     "next-redirect": "^1.0.1",
     "next-redux-wrapper": "^3.0.0-alpha.3",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.1",
     "react": "^16.8.6",
     "react-circular-progressbar": "^2.0.1",
     "react-dom": "^16.8.6",
@@ -33,7 +35,8 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-    "showdown": "^1.9.0"
+    "showdown": "^1.9.1",
+    "snyk": "^1.360.0"
   },
   "proxy": "http://localhost:3000",
   "devDependencies": {
@@ -42,5 +45,6 @@
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.14.3"
-  }
+  },
+  "snyk": true
 }

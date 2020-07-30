@@ -37,7 +37,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "showdown": "^1.9.1",
-    "snyk": "^1.360.0"
+    "snyk": "^1.361.3"
   },
   "proxy": "http://localhost:3000",
   "devDependencies": {

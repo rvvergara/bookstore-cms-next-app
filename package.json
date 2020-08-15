@@ -28,7 +28,7 @@
     "react-dom": "^16.13.1",
     "react-modal": "^3.9.1",
     "react-circular-progressbar": "^2.0.3",
-    "react-redux": "^7.2.0",
+    "react-redux": "^7.2.1",
     "react-modal": "^3.11.2",
     "react-mde": "^7.9.0",
     "react-switch": "^5.0.1",

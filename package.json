@@ -20,10 +20,10 @@
     "js-cookie": "^2.2.1",
     "jwt-decode": "^2.2.0",
     "markdown-to-jsx": "^6.11.4",
-    "next": "^9.3.4",
+    "next": "^10.0.7",
     "next-redirect": "^1.0.1",
     "next-redux-wrapper": "^3.0.0",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-modal": "^3.9.1",
@@ -37,7 +37,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "showdown": "^1.9.1",
-    "snyk": "^1.360.0"
+    "snyk": "^1.685.0"
   },
   "proxy": "http://localhost:3000",
   "devDependencies": {

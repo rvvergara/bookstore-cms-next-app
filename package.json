@@ -20,7 +20,7 @@
     "js-cookie": "^2.2.1",
     "jwt-decode": "^2.2.0",
     "markdown-to-jsx": "^6.11.4",
-    "next": "^9.3.4",
+    "next": "^12.0.8",
     "next-redirect": "^1.0.1",
     "next-redux-wrapper": "^3.0.0",
     "node-sass": "^4.13.1",
@@ -37,7 +37,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "showdown": "^1.9.1",
-    "snyk": "^1.360.0"
+    "snyk": "^1.996.0"
   },
   "proxy": "http://localhost:3000",
   "devDependencies": {
